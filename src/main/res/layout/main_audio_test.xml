@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_style"
+        android:text="@string/main_audio_speaker_test_detail"
+        />
+
+<!--    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:paddingBottom="60dip" >
+
+        <TextView
+            android:id="@+id/title_headsetmic"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="20px"
+            android:text="@string/audiotest_internalmic"
+            android:textSize="32sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/info_headsetmic"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:paddingTop="20px"
+            android:textSize="24sp"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="402dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/record_second"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="20px"
+                        android:textSize="30sp"
+                        android:visibility="visible" />
+
+                    <com.cit.test.helper.VUMeter
+                        android:id="@+id/uvMeter"
+                        android:layout_width="225dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/vumeter" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/b1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="@string/sound11"
+                        android:textSize="44sp" />
+
+                    <Button
+                        android:id="@+id/b2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="@string/sound22"
+                        android:textSize="44sp" />
+
+                    <Button
+                        android:id="@+id/b3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="@string/sound33"
+                        android:textSize="44sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/b4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="@string/sound44"
+                        android:textSize="44sp" />
+
+                    <Button
+                        android:id="@+id/b5"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="@string/sound55"
+                        android:textSize="44sp" />
+
+                    <Button
+                        android:id="@+id/b6"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:text="@string/sound66"
+                        android:textSize="44sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/b7"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:text="@string/no_sound"
+                        android:textSize="36sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout> -->
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/gps_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_style"
+        />
+
+    <ListView
+        android:id="@+id/gps_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/empty_gps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_gps"
+        style="@style/font_style"
+        android:visibility="gone"
+        />
+</LinearLayout>

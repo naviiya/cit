@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <Button android:id="@+id/bt_sounddown" android:layout_width="wrap_content"
+            android:layout_height="50.0dip"
+            android:text="@string/VolDown" android:layout_marginLeft="5dip"/>
+        <Button android:id="@+id/bt_soundup" android:layout_width="wrap_content"
+            android:layout_height="50.0dip"
+            android:text="@string/VolUp" android:layout_marginLeft="5dip"/>
+        <Button android:id="@+id/bt_back" android:layout_width="wrap_content"
+            android:layout_height="50.0dip"
+            android:text="@string/Back" android:layout_marginLeft="5dip"/>
+
+        <Button android:id="@+id/bt_menu" android:layout_width="wrap_content"
+            android:layout_height="50.0dip"
+            android:text="@string/Menu" android:layout_marginLeft="5dip"/>
+
+        <Button android:id="@+id/bt_home" android:layout_width="wrap_content"
+            android:layout_height="50.0dip"
+            android:text="@string/Home" android:layout_marginLeft="5dip"/>
+
+
+</LinearLayout>

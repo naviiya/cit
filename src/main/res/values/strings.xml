@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Version">v1.0.6(201601028)</string>
+    <string name="device_name">T10TC</string>
+
+    <string name="app_name">TabletTest</string>
+
+    <string name="pass">PASS</string>
+    <string name="fail">FAIL</string>
+
+    <string name="Empty"></string>
+    <string name="Color">Color = </string>
+    <string name="White">White</string>
+    <string name="Black">Black</string>
+    <string name="Red">Red</string>
+    <string name="Green">Green</string>
+    <string name="Blue">Blue</string>
+    <string name="Gray">Gray Scale</string>
+    <string name="Orange">Orange</string>
+    <string name="VColorBar">Vertical Color Bar</string>
+    <string name="HColorBar">Horizon Color Bar</string>
+    <string name="CrossHatch">Cross Hatches</string>
+    <string name="T7GTWallpaper">T10T Wallpaper</string>
+    <string name="Win7Wallpaper">Win7 Wallpaper</string>
+
+    <string name="ExternalEnable">External SD Card is ready.</string>
+
+    <string name="VibrationTitle">Vibration Test</string>
+    <string name="VibrationContent">Please judge that if the equipment is vibrating</string>
+
+    <string name="SpeakerTitle">Speaker Test</string>
+    <string name="SpeakerContent">Can you hear from the sound?</string>
+    <string name="Left">Left</string>
+    <string name="Right">Right</string>
+    <string name="SpeakerTip">left:man, right:woman</string>
+
+    <string name="BrightnessTitle">Brightness Test</string>
+    <string name="BrightnessTitleStop">Stop Test</string>
+    <string name="BrightnessSubTitle">Please observe the changes of brightness</string>
+
+    <string name="BluetoothTitle">Bluetooth Test</string>
+    <string name="BluetoothSubTitle">Please observe the equipment</string>
+    <string name="BluetoothAdapterFail">Get adapter failed!</string>
+    <string name="BluetoothScan">Scanning equipment...</string>
+    <string name="BluetoothInit">Please wait for init the equipment.</string>
+    <string name="BluetoothOpenF">Open bluetooth failed.</string>
+    <string name="BluetoothFindF">Find equitment failed.</string>
+    <string name="BluetoothFindS">Find equipment....\n Pass!</string>
+
+    <string name="CameraTitle">Camera Test</string>
+    <string name="CameratextMsgText">Please touch the screen , open the camera</string>
+
+    <string name="GpsTestTitle">Gps C/No test</string>
+    <string name="GpsTestSubTitle">Please observe the equipment</string>
+    <string name="GpsTestResult">Please wait for init the equipment</string>
+
+    <string name="GpsLocationTestTitle">Gps Location test</string>
+    <string name="GpsLocationTestSubTitle">Please observe the equipment</string>
+    <string name="GpsLocationTestResult">Please wait for init the equipment</string>
+    <string name="gpstextx">X axis C/No:</string>
+    <string name="gpstexty">Y axis C/No:</string>
+    <string name="gpstestx">Test X axis</string>
+    <string name="gpstesty">Test Y axis</string>
+
+    <string name="HeadsetMicTitle">Headset MIC Test</string>
+    <string name="HeadsetMicSubTitle">Please say something to the headset\'s mic and hear from the headset</string>
+    <string name="LcdTestTitle">LCD Test</string>
+    <string name="LcdTestStart">Click LCD to start</string>
+
+    <string name="PhoneMictTitle">Mobile phone MIC test</string>
+    <string name="PhoneMicSubTitle">Please say something to the mobile and hear from the speaker</string>
+    <string name="PowertestTitle">Battery Information</string>
+    <string name="PowertestSubTitle"> </string>
+    <string name="AcUnplug">Discharge test(unplug ac):</string>
+    <string name="AcPlugin">Charge test(plug in ac):</string>
+    <string name="ChargeState">Charge status:%1$s</string>
+    <string name="remain_capacity">Remaining Capacity:%1$s mah</string>
+    <string name="Voltage">Voltage:%1$s mV</string>
+    <string name="Capacity">Capacity:%1$s</string>
+    <string name="Plug">Plug:%1$s</string>
+    <string name="Plug_status_ac">AC</string>
+    <string name="Plug_status_usb">USB</string>
+    <string name="Plug_status_none">Unplugged</string>
+    <string name="status_full">full</string>
+    <string name="status_charging">charging</string>
+    <string name="status_not_charging">Not Charging</string>
+    <string name="status_unknown">Unknown</string>
+
+    <string name="SdCardTitle">SD card test</string>
+    <string name="SdCardSubTitle">Please observe the equipment</string>
+    <string name="SdCardFail">Fail!  Can not find SD card</string>
+    <string name="SdCardFind">Find sd card, total space: </string>
+
+    <string name="LcdResolutionTitle">Lcd Resolution test</string>
+    <string name="LcdResolutionFail">Fail!  LcdResolution</string>
+
+
+    <string name="TouchtestTitle">Touch test</string>
+    <string name="TouchtestSubTitle">Do diagonal test before multi-touch point test</string>
+    <string name="VersionTitle">Version test</string>
+    <string name="Firmwareversion">Firmware version:</string>
+    <string name="Kernelversion">Kernel version:</string>
+    <string name="Basebandversion">Baseband version:</string>
+    <string name="Buildversion">Product version:</string>
+
+    <string name="VibrationTest">Vibration Test</string>
+    <string name="testall">Test All Items</string>
+    <string name="Wifitest">Wifi test</string>
+    <string name="WifiError">Wifi test fail</string>
+    <string name="WifiFind">Wifi has find</string>
+    <string name="WifiTry">Try to connect </string>
+    <string name="wififindtest">Wifi has find</string>
+    <string name="WifiConnect">Wifi has connect</string>
+    <string name="WifiPing">Ping test : </string>
+    <string name="WifiHttp">Http connect test: </string>
+    <string name="WifiConnectErr">Can not get connection</string>
+    <string name="WifiSubText">Please observe the equipment</string>
+    <string name="WifiResultText">Please wait for init the equipment</string>
+    <string name="WifiSignal3">信号(强)</string>
+    <string name="WifiSignal2">信号(中)</string>
+    <string name="WifiSignal1">信号(弱)</string>
+    <string name="WifiSignal0">信号(差)</string>
+
+    <string name="SensorTest">Sensor Test</string>
+    <string name="num200">200</string>
+    <string name="gsensorvalue">gsensor value: </string>
+    <string name="Accelerometer">=== Accelerometer === </string>
+    <string name="name_acc"> name:</string>
+    <string name="vendor_acc"> vendor:</string>
+    <string name="version_acc">version:</string>
+    <string name="maxRange_acc">maxRange:</string>
+    <string name="resolution_acc">resolution:</string>
+    <string name="power_acc">power:</string>
+    <string name="sensor_x">x:</string>
+    <string name="sensor_y">y:</string>
+    <string name="sensor_z">z:</string>
+    <string name="Orientation">=== Orientation === </string>
+    <string name="Azimuth"> Azimuth:</string>
+    <string name="Pitch"> Pitch:</string>
+    <string name="Roll"> Roll:</string>
+    <string name="Light">=== Light === </string>
+    <string name="lightvalue">Light:</string>
+    <string name="Proximity">=== Proximity === </string>
+    <string name="Magnetic_Field">=== Magnetic_Field === </string>
+    <string name="Temperature">=== Temperature === </string>
+
+    <string name="Gsensor_x">x axis points up(x:9,y:0,z:0)</string>
+    <string name="Gsensor_y">y axis points up(x:0,y:9,z:0)</string>
+    <string name="Gsensor_z">z axis points up(x:0,y:0,z:9)</string>
+
+    <string name="GsensorTest">Gsensor Test</string>
+    <string name="MsensorTest">Msensor Test</string>
+    <string name="LightsensorTest">Lightsensor Test</string>
+
+    <string name="KeyboardTestTitle">Keyboard Test</string>
+    <string name="KeyboardTestSubTitle">Please test all keys</string>
+    <string name="VolUp">Vol+</string>
+    <string name="VolDown">Vol-</string>
+    <string name="Back">Back</string>
+    <string name="Menu">Menu</string>
+    <string name="Home">Home</string>
+
+    <string name="VolumeKeyTestTitle">Volume Key Test</string>
+    <string name="VolumeUp">Volume Up</string>
+    <string name="VolumeDown">Volume Down</string>
+
+    <string name="FlashLightTest">FlashLight Test</string>
+    <string name="FlashLightTestSubText">Please observe the flashlight of your device when you touch the buttons</string>
+    <string name="OpenFlashLight">Open Flash Light</string>
+    <string name="ShutDownFlashLight">Shut Down Flash Light</string>
+
+    <string name="SimCardTestTitle">Sim Card Test</string>
+    <string name="MrioUSBTitle">Mrio USB Test</string>
+    <string name="MrioUSBsubTitle">Plug in usb and unplug usb</string>
+    <string name="UsbUnplug">Unplug usb test:</string>
+    <string name="UsbPlugin">Plug in usb test:</string>
+
+    <string name="FMRadioTestTitle">FM Radio Test</string>
+    <string name="FMRadioTextMsgText">Please touch the screen, Open the FM Radio</string>
+
+    <string name="CirTestTitle">Cir Test</string>
+    <string name="CirSend">Send</string>
+
+    <string name="CpuInfo">CPU info</string>
+    <string name="MemInfo">MEM info</string>
+    <string name="DmiInfo">DMI info</string>
+
+    <string name="IrdaTestTitle">IrDA Test</string>
+    <string name="SirSend">Sir Send</string>
+    <string name="SirReceive">Sir Receive</string>
+    <string name="SirTest">Sir Test</string>
+    <string name="FirSend">Fir Send</string>
+    <string name="FirReceive">Fir Receive</string>
+    <string name="FirTest">Fir Test</string>
+
+    <string name="InsertSdCard">Please Insert SD Card!</string>
+    <string name="SdCardNospace">SD Card No Space!</string>
+
+    <string name="RecordTest">RecordTest</string>
+    <string name="HeadsetRecodrSuccess">record successs!start Play back.</string>
+    <string name="RecordError">Record error!</string>
+    <string name="RecordLow">the record less than 20db!</string>
+
+    <string name="LedTestTitle">Led Test</string>
+
+    <string name="HdmiTestTitle">HDMI Test</string>
+    <string name="HdmiNoInsert">Please insert HDMI and Touch screen to start test!</string>
+    <string name="HdmiPrepare">Please Wait 3 seconds for Hdmi init!</string>
+    <string name="HdmiResult">Test Finish! \nCan you see the right color in Screen?</string>
+    <string name="HdmiStart">Start Test!</string>
+    <string name="HdmiStartFail">Start failed! Please make sure the HDMI is inserted.</string>
+
+    <string name="StorageTestTitle">Storage R/W Test</string>
+    <string name="StorageSDNoFind">Sdcard path not found...\n</string>
+    <string name="StorageSDCopyF">Failed copy to sdcard!\n</string>
+    <string name="StorageSDCopyS">Copy to sdcard success!\n</string>
+    <string name="StorageUsbNoFind">Usb host path not found...\n</string>
+    <string name="StorageUsbCopyF">Failed copy to usb host!\n</string>
+    <string name="StorageUsbCopyS">Copy to usb host success!\n</string>
+
+
+
+    <string name="RuninTestTitle">Run In Test</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+
+    <string name="btnPassText">Pass</string>
+    <string name="btnFailText">Fail</string>
+    <string name="btnSkipText">Back</string>
+    <string name="OKText">OK!</string>
+
+    <string name="Testall">Test all</string>
+    <string name="Cancel">Close</string>
+    <string name="Clear">Clear</string>
+    <string name="Uninstall">Uninstall</string>
+
+    <string name="success">Success</string>
+
+    <string name="UsbHostTestTitle">Usb Host Test </string>
+    <string name="Hardware">Hardware : </string>
+    <string name="HostStorageState">HostStorageState : </string>
+    <string name="Writable">Write Test : </string>
+    <string name="WriteData">Write Data! </string>
+    <string name="ReadData">Read Data! </string>
+    <string name="MakeDir">Create Dir </string>
+    <string name="CreateFile">Create New File </string>
+    <string name="FileDel">File delete </string>
+    <string name="DirDel">Dir delete </string>
+    <string name="Compare">Compare </string>
+    <string name="HardwareSupport">Hardware : Support. \nFind Device : /dev/block/</string>
+    <string name="HardwareNoSupport">Hardware : Can\'t find Device! \nPlease insert USB device and wait 5 seconds.</string>
+    <string name="nand_flash">NAND flash</string>
+    <string name="total_space">Total space</string>
+    <string name="available_space">Available space</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="nand_unavailable">Unavailable</string>
+    <string name="read_only">\u0020(Read-only)</string>
+    <string name="camera_switch">Switch</string>
+    <string name="SingleTest">ModuleTest</string>
+    <string name="nocamera">No Camera</string>
+    <string name="OK">OK</string>
+    <string name="FAIL">FAIL</string>
+    <string name="TWE">| 20%</string>
+    <string name="FIF">| 50%</string>
+    <string name="HUN">| 100%</string>
+
+    <string name="audio01">love love love+单身情歌</string>
+    <string name="audio02">love love love+怒放的生命</string>
+    <string name="audio03">love love love+最炫民族风</string>
+    <string name="audio04">love love love+痛彻心扉</string>
+    <string name="audio05">单身情歌+love love love</string>
+    <string name="audio06">单身情歌+怒放的生命</string>
+    <string name="audio07">单身情歌+痛彻心扉</string>
+    <string name="audio08">单身情歌+最炫民族风</string>
+    <string name="audio09">最炫民族风+love love love</string>
+    <string name="audio10">最炫民族风+单身情歌</string>
+    <string name="audio11">最炫民族风+怒放的生命</string>
+    <string name="audio12">最炫民族风+痛彻心扉</string>
+    <string name="audio13">没有声音</string>
+    <string name="audio14">重新播放</string>
+
+
+    <string name="sound7">love love love \n 怒放的生命</string>
+    <string name="sound8">love love love \n 痛彻心扉</string>
+    <string name="sound9">单身情歌 \n 怒放的生命</string>
+    <string name="sounda">单身情歌 \n 痛彻心扉</string>
+    <string name="soundb">最炫民族风 \n 怒放的生命</string>
+    <string name="soundc">最炫民族风 \n 痛彻心扉</string>
+    <string name="sound11">1</string>
+    <string name="sound22">2</string>
+    <string name="sound33">3</string>
+    <string name="sound44">4</string>
+    <string name="sound55">5</string>
+    <string name="sound66">6</string>
+    <string name="sound77">7</string>
+    <string name="no_sound">no sound</string>
+    <string name="speaker_test">select sound</string>
+    <string name="emmcTitle">eMMC Test</string>
+    <string name="ddrTitle">DDR Test</string>
+
+    <string name="pcba">PCBA</string>
+    <string name="cit">CIT</string>
+    <string name="run_in">Run-in</string>
+    <string name="ft">FT</string>
+    <string name="lcd_module">LCD module</string>
+    <string name="dmi_check">Test Result Check</string>
+    <string name="socTitle">Soc</string>
+    <string name="memeryTitle">Memery</string>
+    <string name="storageTitle">Storage</string>
+    <string name="systemTitle">System</string>
+    <string name="cpuTemperature">CPU Temperature:</string>
+    <string name="batTemperature">Battery Temperature:</string>
+    <string name="rearcameratitle">Rear Camera Test</string>
+    <string name="frontcameratitle">Front Camera Test</string>
+    <string name="calibation">calibation</string>
+    <string name="GsensorCalibation">please put the machine in horizontal</string>
+    <string name="headphonecheck">please insert headphone</string>
+    <string name="headphonecheckmic">please remove headphone</string>
+    <string name="headphone">please insert headphone</string>
+    <string name="batchargerunin">Battery Level is :</string>
+    <string name="select">select</string>
+    <string name="select1">xxxx</string>
+    <string name="select2">yyyy</string>
+
+    <string name="snTitle">PCBA :</string>
+    <string name="moduleNumberTitle">Module number :</string>
+    <string name="hwversiontitle">HW Version :</string>
+    <string name="mbsnTitle">MB SN :</string>
+    <string name="uuidTitle">UUID :</string>
+    <string name="btTitle">BT MAC :</string>
+    <string name="wifiTitle">WIFI MAC :</string>
+    <string name="factoryTitle">Run in :</string>
+    <string name="productnameTitle">FT :</string>
+    <string name="cpuTitle">CPU :</string>
+    <string name="memTitle">Memory :</string>
+    <string name="storTitle">EMMC :</string>
+    <string name="ssnTitle">SN :</string>
+    <string name="ffactoryTitle">Manufactory :</string>
+    <string name="pproductnameTitle">Product Name :</string>
+
+    <string name="infotest_system_title">InfoTest: System Info</string>
+
+    <string name="sound1">child + man</string>
+    <string name="sound2">child + woman</string>
+    <string name="sound3">man + child</string>
+    <string name="sound4">man + woman</string>
+    <string name="sound5">woman + child</string>
+    <string name="sound6">woman + man</string>
+
+    <string name="NoHeadset">No Headset, please insert one with Microphone.</string>
+    <string name="HeadsetPluggedWithoutMicrophone">Headset without Microphone Plugged.</string>
+    <string name="HeadsetPluggedWithMicrophone">Headset with Microphone Plugged.</string>
+    <string name="HeadsetUnplugged">Headset unplugged.</string>
+
+    <string name="hdmi_test_title">HDMI Test</string>
+
+    <string name="audiotest_speaker_title">AudioTest: Speaker</string>
+    <string name="audiotest_speaker_prompt_title">Speaker Prompt</string>
+    <string name="audiotest_speaker_prompt_message">The headset is plugged, Please remove it!</string>
+    <string name="audiotest_speaker_info_playstart">Please listen to the speaker ...</string>
+    <string name="audiotest_speaker_info_playover">Please click the button as your listened</string>
+
+    <string name="audiotest_headset_title">AudioTest: Headset</string>
+    <string name="audiotest_headset_prompt_title">Headset Prompt</string>
+    <string name="audiotest_headset_prompt_message">The headset is not plugged, Please plug it!</string>
+    <string name="audiotest_headset_info_playstart">Please listen by headset ...</string>
+    <string name="audiotest_headset_info_playover">Please click the button as your listened</string>
+
+    <string name="audiotest_headsetmic_title">AudioTest: Headset Mic</string>
+    <string name="audiotest_headsetmic_prompt_title">Headset Mic Prompt</string>
+    <string name="audiotest_headsetmic_prompt_msg_noheadsetmic">The mic of headset is not plugged, please plug it!</string>
+    <string name="audiotest_headsetmic_prompt_msg_headset_without_mic">Found a headset, but without mic, please plug the headset with mic!</string>
+    <string name="audiotest_headsetmic_info_playstart">Playback the record ...</string>
+
+    <string name="audiotest_headsetmic">Headset Mic Test</string>
+    <string name="audiotest_headsetmic_info">
+    Please say something to the headset\'s mic and hear from the headset</string>
+    <string name="audiotest_headsetmic_dlg_headsetplugin_title">Headset(Mic) Detect</string>
+    <string name="audiotest_headsetmic_dlg_headsetplugin_info">Headset(Mic)) is not pluged, please plug it!</string>
+
+    <string name="audiotest_internalmic">Internel Mic test</string>
+    <string name="audiotest_internalmic_info">
+    Please say something to the internal mic and hear from the speaker</string>
+
+    <string name="audiotest_internalmic_dlg_headsetplugin_title">Headset(Mic) Detect</string>
+    <string name="audiotest_internalmic_dlg_headsetplugin_info">Headset(Mic)) is pluged, please pull out!</string>
+    <string name="audiotest_internalmic_record_ok">Playbacking </string>
+    <string name="audiotest_internalmic_record_err">Error: Record failed!!</string>
+    <string name="audiotest_internalmic_record_err_lt_20db">Error: Record less than 40db</string>
+    <string name="audiotest_internalmic_play_digit">Play sound 1 2 3 4 5 6, click you heard</string>
+
+    <string name="powertest_batterycharge_title">PowerTest: Battery Charging</string>
+    <string name="powertest_batterycharge_prompt_title">Battery Charging Prompt</string>
+    <string name="powertest_batterycharge_prompt_message">The USB cable is not plugged, Please plug it!</string>
+
+    <string name="powertest_batterydischarge_title">PowerTest: Battery Discharging</string>
+    <string name="powertest_batterydischarge_prompt_title">Battery Discharging Prompt</string>
+    <string name="powertest_batterydischarge_prompt_message">The USB cable is plugged, Please remove it!</string>
+
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <!-- Battery -->
+    <!-- <string name="BatteryTest">Battery Test</string>
+    <string name="CurrentLevel">Current Level:</string>
+    <string name="ChargingState">Charging State:</string>
+    <string name="ChargerPlugged">Charger Plugged:</string>
+    <string name="StateUnknown">Unknown</string>
+    <string name="StateCharging">Charging</string>
+    <string name="StateDischarging">Discharging</string>
+    <string name="StateFull">Charged</string>
+    <string name="StateNotCharging">Not charging</string>
+    -->
+    <string name="bat_remove_charger">Please remove the charger USB cable</string>
+    <string name="bat_connect_charger">Please connect the charger</string>
+
+    <string name="bat_status">Battery status: </string>
+    <string name="bat_powerplug">Power plug: </string>
+    <string name="bat_level">Battery level: </string>
+    <string name="bat_scale">Battery scale: </string>
+    <string name="bat_health">Battery health: </string>
+    <string name="bat_voltage">Battery voltage: </string>
+    <string name="bat_temperature">Battery temperature: </string>
+    <string name="bat_technology">Battery technology: </string>
+    <string name="bat_current">Battery current: </string>
+    <string name="bat_capacity">Battery Capacity: </string>
+
+    <string name="bat_health_cold">Cold</string>
+    <string name="bat_health_dead">Dead</string>
+    <string name="bat_health_good">Good</string>
+    <string name="bat_health_overheat">Over heat</string>
+    <string name="bat_health_overvoltage">Over voltage</string>
+    <string name="bat_health_unknown">Unknown</string>
+    <string name="bat_health_unspecified_failure">Unspecified failure</string>
+
+    <string name="bat_plugged_ac">AC</string>
+    <string name="bat_plugged_usb">USB</string>
+    <string name="bat_plugged_wireless">Wireless</string>
+    <string name="bat_plugged_none">None</string>
+
+    <string name="bat_status_charging">Charging</string>
+    <string name="bat_status_discharging">Discharging</string>
+    <string name="bat_status_full">Full</string>
+    <string name="bat_status_notcharging">Not Charging</string>
+    <string name="bat_status_unknown">Unknown</string>
+
+
+    <!-- Sensor -->
+    <string name="sensortest_gsensor_title">SensorTest: G-sensor</string>
+    <string name="sensortest_gsensor_not_found">Can not found G-sensor!</string>
+
+
+    <string name="storagetest_sdcard__title">StorageTest: SD card</string>
+    <string name="storagetest_sdcard__prompt_title">SD card Prompt</string>
+    <string name="storagetest_sdcard__prompt_msg_plugin">Please plugin the SD card!</string>
+    <string name="storagetest_sdcard__prompt_msg_remove">Please remove the SD card!</string>
+
+    <string name="testagain__prompt_title">Test Again Prompt</string>
+    <string name="testagain__prompt_msg">The last test is failed, are you should test it again?</string>
+
+    <string name="srs_summary_unknown">Unknown</string>
+
+
+    <!-- Volume Key -->
+    <string name="audiotest_volumekey__titile">按键检测：音量+/-</string>
+    <string name="audiotest_volumekey__infotip">操作信息提示</string>
+    <string name="audiotest_volumekey__volumeup">音量+</string>
+    <string name="audiotest_volumekey__volumedown">音量-</string>
+
+    <string name="batterycapacity__title">电池电量检测</string>
+
+    <string name="cameratest_front__snapshot">Snapshot</string>
+    <string name="cameratest_front__preview">图像预览</string>
+    <string name="cameratest_front__takephoto">抓拍照片</string>
+
+    <string name="connecttest_gps__title">GPS Test: TTFF</string>
+    <string name="connecttest_gps__longitude">经度：</string>
+    <string name="connecttest_gps__latitude">纬度：</string>
+    <string name="connecttest_gps__ttff">TTFF: </string>
+    <string name="connecttest_gps__cnr">CNR: </string>
+    <string name="connecttest_gps__info">卫星信息：</string>
+
+    <string name="gpstest_ttff__provider">定位信息提供者：</string>
+    <string name="gpstest_ttff__status">状态：</string>
+    <string name="gpstest_ttff__timeout">计时器超时时间：</string>
+    <string name="gpstest_ttff__tip">提示信息：</string>
+    <string name="gpstest_ttff__title">GPS TTFF测试</string>
+    <string name="gpstest_ttff__test">测试</string>
+
+
+    <string name="infotest_dmi__title">DMI信息检查</string>
+    <string name="infotest_dmi__manu">制造商：</string>
+    <string name="infotest_dmi__none"></string>
+    <string name="infotest_dmi__prod">产品名称：</string>
+    <string name="infotest_dmi__vers">产品版本号：</string>
+    <string name="infotest_dmi__sn">序列号：</string>
+    <string name="infotest_dmi__uuid">UUID：</string>
+    <string name="infotest_dmi__oem">OEM字符串：</string>
+    <string name="infotest_dmi__wifimac">WIFI MAC：</string>
+    <string name="infotest_dmi__uuidmac">UUID MAC：</string>
+
+
+    <string name="btn_exit">Exit</string>
+
+    <string name="main__other">其  他</string>
+    <string name="main__autotest">自动化测试</string>
+    <string name="main__standby">休眠次数: </string>
+    <string name="main__standby_default">10</string>
+    <string name="main__reboot">重启次数: </string>
+    <string name="main__reboot_default">10</string>
+    <string name="main__playtime">视频播放时间(分钟): </string>
+    <string name="main__playtime_default">90</string>
+
+    <string name="powertest_batterycharge__prompt">测试失败，是否重测？</string>
+    <string name="powertest_batterycharge__prompt_no">否</string>
+    <string name="powertest_batterycharge__prompt_yes">是</string>
+    <string name="runin_battery__title">Runin: Battery Test</string>
+    <string name="runin_reboot__title">Runin：Reboot Test</string>
+    <string name="runin_reboot__set">设置次数：</string>
+    <string name="runin_reboot__times_set">0</string>
+    <string name="runin_reboot__done">完成次数：</string>
+    <string name="runin_reboot__times_done">0</string>
+    <string name="runin_reboot__timeout">5秒</string>
+    <string name="runin_reboot__stop">停止测试</string>
+
+    <string name="runin_standby__title">Runin：休眠测试</string>
+
+    <string name="runin_playvideo__title">Runin: 视频播放(请连接充电器充电)</string>
+    <string name="runin_playvideo__set">设置时间</string>
+    <string name="runin_playvideo__time_set">00:00:00</string>
+    <string name="runin_playvideo__done">实测时间</string>
+    <string name="runin_playvideo__time_done">00:00:00:0</string>
+    <string name="runin_playvideo__cpu_temp">CPU温度</string>
+    <string name="runin_playvideo__cpu_temp_num">00</string>
+    <string name="runin_playvideo__bat_temp">电池温度</string>
+    <string name="runin_playvideo__bat_temp_num">00</string>
+    <string name="runin_playvideo__bat_cap">电池电量</string>
+    <string name="runin_playvideo__bat_cap_num">00</string>
+    <string name="runin_playvideo__bat_curr">充电电流</string>
+    <string name="runin_playvideo__bat_curr_num">00</string>
+
+    <string name="runin_thermal__title">Runin: Thermal Test</string>
+
+    <string name="show_result__title">测试结果显示</string>
+    <string name="show_result__none"></string>
+
+
+    <string name="retest__prompt">测试失败，是否重测？</string>
+    <string name="retest__prompt_no">否</string>
+    <string name="retest__prompt_yes">是</string>
+
+
+    <string name="tptest__title">触摸屏检测</string>
+    <string name="tptest__timedown"></string>
+    <string name="tptest__failed">失败</string>
+
+
+    <string name="tptest_rawdata__title">触摸屏检测</string>
+    <string name="tptest_rawdata__result">检测结果：</string>
+    <string name="tptest_rawdata__test_item">检测项：</string>
+
+    <string name="tptest_righttriangle__title">触摸屏检测</string>
+    <string name="tptest_righttriangle__info">This is Himi</string>
+    <string name="tptest_righttriangle__ok">成功</string>
+    <string name="tptest_righttriangle__fail">失败</string>
+    <string name="tptest_righttriangle__retest">重测</string>
+
+    <string name="runin_battery_charging__title">老化测试：电池充电电量检测</string>
+
+    <!-- runin电池电量控制 -->
+    <string name="runin_batcap_ctl_title">Runin: 电池电量控制</string>
+    <string name="runin_batcap_ctl_subtitle">电池电量：</string>
+    <string name="runin_batcap_ctl_charging">充电中</string>
+    <string name="runin_batcap_ctl_discharing">放电中</string>
+
+    <!-- HDMI test -->
+    <string name="hdmi_number_title">请点击您所看到的数字所对应的按钮</string>
+    <string name="hdmi_num_retry">重           	试</string>
+    <string name="hdmi_no_num">看不清数字</string>
+    <string name="hdmi_audio_test_pass">HDMI声音测试成功</string>
+    <string name="hdmi_num_test_pass">HDMI图像测试成功</string>
+    <string name="hdmi_prompt_title">HDMI测试提示</string>
+    <string name="hdmi_prompt_message">请连接HDMI线</string>
+
+    <!-- by lsg Other -->
+    <string name="other_battery_learning_title">Battery Learning</string>
+    <string name="other_battery_learning_charging">正在充电：</string>
+    <string name="other_battery_learning_discharging">正在放电：</string>
+    <string name="other_ac_escape">请连接电源适配器进行充电！！！</string>
+    <string name="LED_Test_title">LED Test</string>
+    <string name="head_set_detail">请插入耳机</string>
+    <string name="key_power">电源键</string>
+    <string name="key_headset">耳机键</string>
+
+
+
+    <string name="next">确定</string>
+    <string name="retry">重测</string>
+    <string name="fail1">失败</string>
+    <string name="percent1">百分之一</string>
+    <string name="percent50">百分之五十</string>
+    <string name="percent100">百分之百</string>
+    <string name="check_version">检查软件版本</string>
+    <string name="check_version_detail">当前软件版本为：\n%1$s\n请确认无误后点击确定按钮进入到下一项测试</string>
+    <string name="speaker_test_info">请检查扬声器是否正常</string>
+    <string name="usb_test_info">连接键盘或者U盘。如果系统识别链接设备（保证器件焊接正常），确认测试正常后点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="brightness_test_info">测试过程中背景灯会先关闭，然后重新点亮至最亮，确认测试正常后点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="vol_up">音量上键</string>
+    <string name="vol_down">音量下键</string>
+    <string name="t_flash_card_test_detail">请确认存储卡信息：\n可用空间：%1$sM\n总空间：%2$sM</string>
+    <string name="t_flash_card_test_fail">请插入sd卡</string>
+    <string name="emmc_detail">请确认内部存储信息：\n可用空间:%1$sM\n总空间：%2$sM</string>
+    <string name="mhl_test_detail">连接HML数据线到显示器上，如果显示正常点击确定进入到下一项，如果失败点击失败按钮退出测试，点击重测按钮可以重新测量此项。</string>
+    <string name="main_audio_speaker_test_detail">对着MIC说话并确认Speaker有正常的声音发出后，点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="plug_headset">请插入耳机！</string>
+    <string name="test_headset">请测试耳机听筒！</string>
+    <string name="click_screen_to_capture">点击屏幕开始拍照</string>
+    <string name="link_to_glass">请连接眼镜</string>
+    <string name="glass_connected">眼镜已连接</string>
+    <string name="charging_tip">请插入充电器</string>
+    <string name="wifi_search">正在搜索：</string>
+    <string name="wifi_result">找到的wifi设备：</string>
+    <string name="open_wifi">正在打开wifi</string>
+    <string name="wifi_fail">搜索失败，未找到可连接的wifi</string>
+    <string name="no_wifi">点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="no_bluetooth">点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="bluetooth_search">正在搜索可配对的蓝牙设备：</string>
+    <string name="bluetooth_fail">搜索失败，未找到可配对的蓝牙设备</string>
+    <string name="bluetooth_result">找到的可配对的设备：</string>
+    <string name="open_bluetooth">正在打开蓝牙</string>
+    <string name="no_gps">点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="open_gps">正在打开GPS</string>
+    <string name="search_gps">正在搜索GPS卫星</string>
+    <string name="search_gps_fail">GPS卫星数量为0</string>
+    <string name="search_gps_success">GPS卫星数量为%1$s</string>
+    <string name="gps_on">GPS已开启</string>
+    <string name="gps_off">GPS已关闭</string>
+    <string name="rgb_tip">指示灯显示三色（红，黄，蓝）依此显示，确认指示灯显示正常后，点击”确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="brightness_reback">测试完毕，将恢复至原来亮度</string>
+    <string name="touch_test_tip">请用手指按照引导框提示划口型和又型，注意要划到框内</string>
+    <string name="test_fail">测试失败</string>
+    <string name="tflash_card_tip">请插入存储卡</string>
+    <string name="press_exit">请按确定按钮退出测试，稍后手机将会自动开始恢复出厂设置，恢复出厂设置时不能取下电池，待手机重启完全开机后方可取下电池</string>
+    <string name="touch_test_fail">你在1分钟内未完成此项测试，请点击重测可重新测试此项或点击失败后直接退出测试模式</string>
+    <string name="test_fail_uncomplete">测试失败，有未完成项目</string>
+    <string name="test_success">测试成功</string>
+</resources>
