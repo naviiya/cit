@@ -244,6 +244,8 @@ public class DeviceTest extends Activity implements OnClickListener {
         } else if (view.getId() == R.id.btn2) {
             // runin test
             Toast.makeText(this, "runin test!", Toast.LENGTH_LONG).show();
+            // write result to disk
+            Utils.writeResultToDisk(false,new File(getFilesDir(),"runinflag"));
         }
 
     }

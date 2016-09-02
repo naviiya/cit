@@ -78,10 +78,11 @@
     </PreferenceScreen>
 
 
-    <PreferenceScreen android:key="camera_photo_test"
-        android:summary="摄像头拍摄照片测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+    <!-- hide -->
+    <!--<PreferenceScreen android:key="camera_photo_test"-->
+        <!--android:summary="摄像头拍摄照片测试"-->
+        <!--android:fragment="com.cit.test.fragment.CheckVersionFragment">-->
+    <!--</PreferenceScreen>-->
 
 
     <PreferenceScreen android:key="WIFI_test"

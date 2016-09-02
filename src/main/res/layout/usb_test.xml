@@ -4,9 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/usb_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/usb_test_info"
+        android:text="@string/usb_test_tip"
         style="@style/font_style"
         android:layout_gravity="center"
         />

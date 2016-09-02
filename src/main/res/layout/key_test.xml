@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <Button android:id="@+id/bt_sounddown" android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:text="@string/VolDown" android:layout_marginLeft="5dip"/>
-        <Button android:id="@+id/bt_soundup" android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:text="@string/VolUp" android:layout_marginLeft="5dip"/>
-        <Button android:id="@+id/bt_back" android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:text="@string/Back" android:layout_marginLeft="5dip"/>
+    <LinearLayout
+        android:id="@+id/key_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <Button android:id="@+id/bt_sounddown" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/VolDown" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
+        <Button android:id="@+id/bt_soundup" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/VolUp" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
 
-        <Button android:id="@+id/bt_menu" android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:text="@string/Menu" android:layout_marginLeft="5dip"/>
+        <Button android:id="@+id/bt_power" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/power" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
 
-        <Button android:id="@+id/bt_home" android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:text="@string/Home" android:layout_marginLeft="5dip"/>
+        <Button android:id="@+id/bt_F7" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/key_f7" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
 
+        <Button android:id="@+id/bt_F8" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/key_f8" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
 
-</LinearLayout>
+        <Button android:id="@+id/bt_F9" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/key_f9" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
+
+        <Button android:id="@+id/bt_F10" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/key_f10" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
+
+        <Button android:id="@+id/bt_F12" android:layout_width="120dp"
+            android:layout_height="40.0dip"
+            android:text="@string/key_f12" android:layout_marginLeft="5dip" android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/key_test_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_style"
+        android:text="@string/insert_glxss_and_headset"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

@@ -17,6 +17,14 @@ import android.widget.Toast;
 import com.cit.test.R;
 import com.cit.test.TestItemActivity;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 /**
  *
  */
@@ -49,8 +57,10 @@ public class BrightnessTestFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case CLOSE_SCREEN:
-                    curBrightness = 0.05f;
-                    setBrightness(curBrightness);
+//                    curBrightness = 0.05f;
+//                    setBrightness(curBrightness);
+//                    dimScreen();
+                    writeValue("/sys/class/backlight/intel_backlight/brightness","0");
                     mHandler.sendEmptyMessageDelayed(LIGHT_UP,2000);
                     break;
                 case LIGHT_UP:
@@ -94,6 +104,62 @@ public class BrightnessTestFragment extends Fragment {
     private float getBrightness(){
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         return lp.screenBrightness;
+    }
+
+    private void dimScreen(){
+        File f = new File("/sys/class/backlight/intel_backlight/brightness");
+        Log.i(TAG, "dimScreen: ");
+        if(f.exists() && f.isFile()){
+            Log.i(TAG, "dimScreen: file exist");
+            OutputStreamWriter out = null;
+            try {
+                 out = new OutputStreamWriter(new FileOutputStream(f));
+                out.write("0");
+                out.flush();
+            } catch (Exception e) {
+                Log.e(TAG, "dimScreen: ",e);
+            }finally {
+                if(out != null){
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, "dimScreen: ",e);
+                    }
+                }
+            }
+
+        }
+    }
+    public  void writeValue(String filename, String value) {
+        //FileOutputStream fos = null;
+        DataOutputStream os = null;
+        try {
+        /*fos = new FileOutputStream(new File(filename), false);
+        fos.write(value.getBytes());
+        fos.flush();*/
+
+            Process p;
+
+            p = Runtime.getRuntime().exec("su");
+            os = new DataOutputStream(p.getOutputStream());
+
+            os.writeBytes("echo "+ value + " > " + filename + "\n");
+            os.writeBytes("exit\n");
+
+            Log.w(TAG, value + " >> " + filename);
+
+            os.flush();
+        } catch (IOException e) {
+            Log.e(TAG, "writeValue: ",e);
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    Log.d(TAG, "Could not close " + filename, e);
+                }
+            }
+        }
     }
 
 }

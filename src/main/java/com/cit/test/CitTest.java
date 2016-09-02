@@ -59,7 +59,8 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         Preference emmcTest = findPreference("emmc_test");
         Preference chargingTest = findPreference("charging_test");
         Preference cameraTest = findPreference("camera_test");
-        Preference cameraPhotoTest = findPreference("camera_photo_test");
+        //hide
+//        Preference cameraPhotoTest = findPreference("camera_photo_test");
         Preference wifiTest = findPreference("WIFI_test");
         Preference bluetoothTest = findPreference("bluetooth_test");
         Preference gpsTest = findPreference("gps_test");
@@ -78,7 +79,8 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         keyTest.setOnPreferenceClickListener(this);
         flashTest.setOnPreferenceClickListener(this);
         emmcTest.setOnPreferenceClickListener(this);
-        cameraPhotoTest.setOnPreferenceClickListener(this);
+        // hide
+//        cameraPhotoTest.setOnPreferenceClickListener(this);
         cameraTest.setOnPreferenceClickListener(this);
         wifiTest.setOnPreferenceClickListener(this);
         bluetoothTest.setOnPreferenceClickListener(this);
@@ -194,12 +196,13 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         PreferenceRecorder.addPreference(wrapper);
 
 
-        wrapper = new PreferenceWrapper();
-        wrapper.setPreference(cameraPhotoTest);
-        wrapper.setClazz(CameraPhotoTestFragment.class);
-        wrapper.setSuccess(false);
-        wrapper.setIndex(count++);
-        PreferenceRecorder.addPreference(wrapper);
+        //hide
+//        wrapper = new PreferenceWrapper();
+//        wrapper.setPreference(cameraPhotoTest);
+//        wrapper.setClazz(CameraPhotoTestFragment.class);
+//        wrapper.setSuccess(false);
+//        wrapper.setIndex(count++);
+//        PreferenceRecorder.addPreference(wrapper);
 
         wrapper = new PreferenceWrapper();
         wrapper.setPreference(wifiTest);

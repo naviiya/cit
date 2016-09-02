@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.cit.test.R;
 import com.cit.test.TestItemActivity;
-import com.cit.test.view.InterceptTouchView;
 import com.cit.test.view.TouchTestView;
 
 import java.util.Timer;
@@ -30,7 +29,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
 
     private Timer timer;
     private TouchTestView touchTestView;
-    private TouchTestView actualView;
+    private TouchTestView actualView;//cover view on activity
 
     @Nullable
     @Override
@@ -42,7 +41,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
     @Override
     public void onResume() {
         super.onResume();
-        prohibitDropDown();
+        addCoverView();
         Toast.makeText(getActivity(),getResources().getString(R.string.touch_test_tip),Toast.LENGTH_LONG).show();
         startTimer();
     }
@@ -61,7 +60,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            allowDropDown();
+            removeCoverView();
             Toast.makeText(getActivity(),getResources().getString(R.string.touch_test_fail),Toast.LENGTH_LONG).show();
             touchTestView.setAllowDraw(false);
             ((TestItemActivity)getActivity()).displayPanel();
@@ -71,6 +70,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
 
     @Override
     public void complete() {
+        removeCoverView();
         ((TestItemActivity)getActivity()).onNext();
     }
 
@@ -83,7 +83,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
         }
         mHandler.removeCallbacksAndMessages(null);
     }
-    private void prohibitDropDown() {
+    private void addCoverView() {
         manager = ((WindowManager) getActivity()
                 .getSystemService(Context.WINDOW_SERVICE));
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
@@ -106,7 +106,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
 
     private WindowManager manager;
 
-    private void allowDropDown(){
+    private void removeCoverView(){
         manager.removeView(actualView);
     }
 

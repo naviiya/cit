@@ -305,8 +305,8 @@
     <string name="brightness_test_info">测试过程中背景灯会先关闭，然后重新点亮至最亮，确认测试正常后点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="vol_up">音量上键</string>
     <string name="vol_down">音量下键</string>
-    <string name="t_flash_card_test_detail">请确认存储卡信息：\n可用空间：%1$sM\n总空间：%2$sM</string>
-    <string name="t_flash_card_test_fail">请插入sd卡</string>
+    <string name="t_flash_card_test_detail">请确认存储卡信息：\n可用空间：%1$s\n总空间：%2$s</string>
+    <string name="t_flash_card_test_fail">请插入t-flash卡</string>
     <string name="emmc_detail">请确认内部存储信息：\n可用空间:%1$sM\n总空间：%2$sM</string>
     <string name="mhl_test_detail">连接HML数据线到显示器上，如果显示正常点击确定进入到下一项，如果失败点击失败按钮退出测试，点击重测按钮可以重新测量此项。</string>
     <string name="main_audio_speaker_test_detail">对着MIC说话并确认Speaker有正常的声音发出后，点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
@@ -342,5 +342,27 @@
     <string name="touch_test_fail">你在1分钟内未完成此项测试，请点击重测可重新测试此项或点击失败后直接退出测试模式</string>
     <string name="test_fail_uncomplete">测试失败，有未完成项目</string>
     <string name="test_success">测试成功</string>
+    <string name="tflash_card_mount_error">tflash卡未正确插入</string>
+    <string name="usb_mount_error">Usb设备未连接</string>
+    <string name="usb_test_tip">请插入Usb设备</string>
+    <string name="usb_connected">Usb设备已经连接</string>
+    <string name="power">电源键</string>
+    <string name="key_f7">F7</string>
+    <string name="key_f8">F8</string>
+    <string name="key_f9">F9</string>
+    <string name="key_f10">F10</string>
+    <string name="key_f12">F12</string>
+    <string name="takephoto">拍照</string>
+    <string name="open_camera">正在打开相机</string>
+    <string name="camera_not_found">未发现相机</string>
+    <string name="takephoto_error">拍照失败，请重试！</string>
+    <string name="camera_photo_test">摄像头拍摄照片测试</string>
+    <string name="loading">正在处理中，请稍候...</string>
+    <string name="glxss_not_found">未发现眼镜，请检查连接状态！</string>
+    <string name="insert_glxss_and_headset">请连接眼镜，并插入耳机！</string>
+    <string name="master_clear_progress_title">正在恢复出厂设置</string>
+    <string name="master_clear_progress_text">请稍候...</string>
+    <string name="insert_glxss">请连接眼镜</string>
+    <string name="glxss_connected">眼镜已连接</string>
 
 </resources>

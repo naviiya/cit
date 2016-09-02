@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  */
-public class GpsTestFragment extends Fragment{
+public class GpsTestFragment extends Fragment {
 
     private static final String TAG = "GpsTestFragment";
     private TextView gpsTip;
@@ -45,28 +45,27 @@ public class GpsTestFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.gps_test_layout,container,false);
+        View v = inflater.inflate(R.layout.gps_test_layout, container, false);
         gpsTip = (TextView) v.findViewById(R.id.gps_tip);
         gpsList = (ListView) v.findViewById(R.id.gps_list);
         empty = (TextView) v.findViewById(R.id.empty_gps);
         gpsTip.setText(getResources().getString(R.string.open_gps));
-        ((TestItemActivity)getActivity()).disableButton(R.id.btn_next);
+        ((TestItemActivity) getActivity()).disableButton(R.id.btn_next);
         return v;
     }
 
     LocationManager locationManager;
 
+
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume() {
+        super.onResume();
         init();
     }
 
+    private class GpsAdapter extends BaseAdapter {
 
-
-    private class GpsAdapter extends BaseAdapter{
-
-        public void refresh(){
+        public void refresh() {
             notifyDataSetChanged();
         }
 
@@ -89,13 +88,13 @@ public class GpsTestFragment extends Fragment{
         public View getView(int i, View view, ViewGroup viewGroup) {
             View v;
             Holder holder;
-            if(view == null){
-                v = LayoutInflater.from(getActivity()).inflate(R.layout.gps_item_layout,viewGroup,false);
+            if (view == null) {
+                v = LayoutInflater.from(getActivity()).inflate(R.layout.gps_item_layout, viewGroup, false);
                 holder = new Holder();
                 holder.satelliteIndex = (TextView) v.findViewById(R.id.satellite_index);
                 holder.satelliteDegree = (TextView) v.findViewById(R.id.satellite_degree);
                 v.setTag(holder);
-            }else {
+            } else {
                 v = view;
                 holder = (Holder) v.getTag();
             }
@@ -103,7 +102,8 @@ public class GpsTestFragment extends Fragment{
             holder.satelliteDegree.setText(numSatelliteList.get(i).getSnr() + "");
             return v;
         }
-        class Holder{
+
+        class Holder {
             TextView satelliteIndex;
 
             TextView satelliteDegree;
@@ -114,7 +114,7 @@ public class GpsTestFragment extends Fragment{
     private void init() {
         adapter = new GpsAdapter();
         gpsList.setAdapter(adapter);
-        locationManager =  (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         String provider = LocationManager.GPS_PROVIDER;
         Location location = locationManager.getLastKnownLocation(provider);
         locationManager.requestLocationUpdates(provider, 1000, 0,
@@ -130,16 +130,28 @@ public class GpsTestFragment extends Fragment{
 
                     @Override
                     public void onProviderEnabled(String s) {
-                        Toast.makeText(getActivity(),getResources().getString(R.string.gps_on),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.gps_on), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onProviderDisabled(String s) {
-                        Toast.makeText(getActivity(),getResources().getString(R.string.gps_off),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.gps_off), Toast.LENGTH_SHORT).show();
+                        mHandler.sendEmptyMessageDelayed(GO_TO_SET_GPS,500);
                     }
                 });
         locationManager.addGpsStatusListener(statusListener);
     }
+
+    private static final int GO_TO_SET_GPS = 1110;
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == GO_TO_SET_GPS){
+                goToSetGPS();
+            }
+        }
+    };
 
 
     private List<GpsSatellite> numSatelliteList = new ArrayList<>();
@@ -166,9 +178,9 @@ public class GpsTestFragment extends Fragment{
                 numSatelliteList.add(s);
                 count++;
             }
-            if(count != 0){
+            if (count != 0) {
                 notifySatelliteFind();
-            }else {
+            } else {
                 findNoSatellite();
             }
         }
@@ -177,15 +189,15 @@ public class GpsTestFragment extends Fragment{
     }
 
     private void notifySatelliteFind() {
-        ((TestItemActivity)getActivity()).resetButton();
+        ((TestItemActivity) getActivity()).resetButton();
         adapter.refresh();
-        gpsTip.setText(getResources().getString(R.string.search_gps_success,numSatelliteList.size() + ""));
+        gpsTip.setText(getResources().getString(R.string.search_gps_success, numSatelliteList.size() + ""));
         gpsList.setVisibility(View.VISIBLE);
         empty.setVisibility(View.GONE);
     }
 
     private void findNoSatellite() {
-        ((TestItemActivity)getActivity()).disableButton(R.id.btn_next);
+        ((TestItemActivity) getActivity()).disableButton(R.id.btn_next);
         gpsTip.setText(getResources().getString(R.string.search_gps_fail));
         gpsList.setVisibility(View.GONE);
         empty.setVisibility(View.VISIBLE);
@@ -194,8 +206,30 @@ public class GpsTestFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(locationManager != null){
+        if (locationManager != null) {
             locationManager.removeGpsStatusListener(statusListener);
         }
+    }
+
+    private void goToSetGPS() {
+        Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 0){
+            if(!isGpsOn()){
+                Toast.makeText(getActivity(), getResources().getString(R.string.gps_off), Toast.LENGTH_SHORT).show();
+                mHandler.sendEmptyMessageDelayed(GO_TO_SET_GPS,500);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private boolean isGpsOn(){
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }

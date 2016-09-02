@@ -2,10 +2,14 @@ package com.cit.test.fragment;
 
 import android.app.Fragment;
 import android.app.KeyguardManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,14 +20,17 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cit.test.R;
 import com.cit.test.TestItemActivity;
+import com.cit.test.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static android.content.Context.POWER_SERVICE;
 import static android.content.Context.WINDOW_SERVICE;
 
 /**
@@ -31,51 +38,115 @@ import static android.content.Context.WINDOW_SERVICE;
  */
 
 public class KeyBoardTestFragment extends Fragment implements View.OnKeyListener {
-    static final int Key_Status_Down = 1;
-    static final int Key_Status_Null = 0;
-    static final int Key_Status_Up = 2;
-    static int upcolorflag = 0;
-    static int downcolorflag = 0;
-    static final String TAG = "KeyBoardTestFragment";
+    private static final String TAG = "KeyBoardTestFragment";
 
     private int[] mButtonIds;
-    private HashMap<Integer, Integer> mButtonMaps = new HashMap();
-    private HashMap<Integer, Integer> mButtonStatus = new HashMap();
+    private HashMap<Integer, Integer> mButtonMaps = new HashMap<>();
+    private HashMap<Integer, Integer> mButtonStatus = new HashMap<>();
     private int[] mKeyCodes;
     private View v = null;
     private View windowV;
     private WindowManager wm = null;
     KeyguardManager.KeyguardLock kl = null;
+    private TextView tip;
+    private View group;
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        //steven end
         wm = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         KeyguardManager km = (KeyguardManager) getActivity().getSystemService(Context.KEYGUARD_SERVICE);
-        kl = km.newKeyguardLock("unLock");
+        kl = km.newKeyguardLock(null);
+    }
+    public static final String ACTION_GLXSS_DEVICE_ATTACHED = "android.hardware.usb.action.GLXSS_DEVICE_ATTACHED";
+    public static final String ACTION_GLXSS_DEVICE_DETACHED = "android.hardware.usb.action.GLXSS_DEVICE_DETACHED";
+    PowerManager.WakeLock wakeLock;
+    public void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_GLXSS_DEVICE_ATTACHED);
+        filter.addAction(ACTION_GLXSS_DEVICE_DETACHED);
+        mReceiver = new GlxssReceiver();
+        getActivity().registerReceiver(mReceiver,filter);
+        if(!Utils.isGlxssConnect(getActivity())){
+            Toast.makeText(getActivity(), getResources().getString(R.string.insert_glxss_and_headset), Toast.LENGTH_LONG).show();
+            return;
+        }
+        startTest();
+    }
+
+    private void startTest() {
+        tip.setVisibility(View.GONE);
+        group.setVisibility(View.VISIBLE);
+        wakeLock = ((PowerManager) getActivity().getSystemService(POWER_SERVICE))
+                .newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                        | PowerManager.ON_AFTER_RELEASE, TAG);
+        wakeLock.acquire();
+        kl.disableKeyguard();
+        windowV = new View(getActivity());
+//        addWindow();
+    }
+
+    private GlxssReceiver mReceiver;
+    private class GlxssReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if(action.equals(ACTION_GLXSS_DEVICE_ATTACHED)){
+                Log.i(TAG, "onReceive: " + " attach ");
+                group.setVisibility(View.VISIBLE);
+                tip.setVisibility(View.GONE);
+            }else if(action.equals(ACTION_GLXSS_DEVICE_DETACHED)){
+                Log.i(TAG, "onReceive: detach");
+                group.setVisibility(View.GONE);
+                tip.setVisibility(View.VISIBLE);
+                Toast.makeText(getActivity(), getResources().getString(R.string.insert_glxss_and_headset), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 
-    public void onResume() {
-        super.onResume();
-        kl.disableKeyguard();
-        windowV = new View(getActivity());
-        addWindow();
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mReceiver != null){
+            getActivity().unregisterReceiver(mReceiver);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        removeWindow();
+        if (wakeLock != null) {
+            wakeLock.release();
+        }
+//        removeWindow();
         kl.reenableKeyguard();
     }
 
     private void initButtonsMaps() {
         Log.d(TAG, "===========initButtonsMaps======");
-        int[] resId = {R.id.bt_sounddown, R.id.bt_soundup/*, R.id.bt_home,
-                R.id.bt_menu, R.id.bt_back */};
+        int[] resId = {
+                R.id.bt_sounddown,
+                R.id.bt_soundup,
+                R.id.bt_power,
+                R.id.bt_F7,
+                R.id.bt_F8,
+                R.id.bt_F9,
+                R.id.bt_F10,
+                R.id.bt_F12,
+        };
         mButtonIds = resId;
-        int[] keycode = {25, 24/*, 3, 82, 4*/};
+        int[] keycode = {
+                KeyEvent.KEYCODE_VOLUME_DOWN,
+                KeyEvent.KEYCODE_VOLUME_UP,
+                KeyEvent.KEYCODE_POWER,
+                KeyEvent.KEYCODE_F7,
+                KeyEvent.KEYCODE_F8,
+                KeyEvent.KEYCODE_F9,
+                KeyEvent.KEYCODE_F10,
+                KeyEvent.KEYCODE_F12
+        };
         mKeyCodes = keycode;
 
         int i = 0;
@@ -84,8 +155,8 @@ public class KeyBoardTestFragment extends Fragment implements View.OnKeyListener
         Log.d(TAG, "I=" + i + " j = " + j);
 
         for (i = 0; i < j; i++) {
-            Integer key = Integer.valueOf(mKeyCodes[i]);
-            Integer value = Integer.valueOf(mButtonIds[i]);
+            int key = mKeyCodes[i];
+            int value = mButtonIds[i];
             mButtonMaps.put(key, value);
         }
         resetButtonBackground();
@@ -112,113 +183,32 @@ public class KeyBoardTestFragment extends Fragment implements View.OnKeyListener
             if (j >= i)
                 return;
             int k = mButtonIds[j];
-            v.findViewById(k).setBackgroundColor(Color.rgb(255, 255, 255));
+            v.findViewById(k).setBackgroundResource(R.drawable.button_bg_normal);
             ((TextView) v.findViewById(k)).setTextColor(Color.BLACK);
             j += 1;
         }
     }
 
     private void setButtonBackgroundDown(int resId) {
-        Log.d(TAG, "=====613========setButtonBackgroundDown");
-        v.findViewById(resId).setBackgroundColor(Color.BLUE);
+        v.findViewById(resId).setBackgroundResource(R.drawable.button_bg_down);
     }
 
     private void setButtonBackgroundUp(int resId) {
-        Log.d(TAG, "======setButtonBackgroundUp");
-        v.findViewById(resId).setBackgroundColor(Color.GREEN);
+        v.findViewById(resId).setBackgroundResource(R.drawable.button_bg_up);
     }
 
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        int keyCode = keyEvent.getKeyCode();
-        int actionCode = keyEvent.getAction();
-        Log.d(TAG, "KeyCode = " + keyCode);
-        Log.d(TAG, "actionCode = " + actionCode);
-        if (!isTestKey(keyCode)) {
-
-        }
-        int value = 0;
-        Integer key = Integer.valueOf(keyCode);
-        value = mButtonMaps.get(key).intValue();
-        Log.d(TAG, "==================   value = " + value);
-        switch (actionCode) {
-            case 0:
-                setButtonBackgroundDown(value);
-                mButtonStatus.put(key, Integer.valueOf(1));
-                break;
-
-            case 1:
-                setButtonBackgroundUp(value);
-                mButtonStatus.put(key, Integer.valueOf(1));
-                if (keyCode == 24) {
-                    if (upcolorflag == 0 && downcolorflag == 0) {
-                        upcolorflag = 1;
-                        Log.d(TAG, "=========1111111111======== 00");
-                    } else if (upcolorflag == 0 && downcolorflag == 1) {
-                        ((Button) v.findViewById(R.id.btn_Fail)).performClick();
-                        Log.d(TAG, "=========1111111111======== 01");
-                    } else if (upcolorflag == 0 && downcolorflag == 2) {
-                        upcolorflag = 1;
-                        Log.d(TAG, "=========1111111111======== 02");
-                    } else if (upcolorflag == 1 && downcolorflag == 0) {
-                        upcolorflag = 2;
-                        Log.d(TAG, "=========1111111111======== 10");
-                    } else if (upcolorflag == 1 && downcolorflag == 1) {
-                        ((Button) v.findViewById(R.id.btn_Fail)).performClick();
-                        Log.d(TAG, "=========1111111111======== 11");
-                    } else if (upcolorflag == 1 && downcolorflag == 2) {
-                        upcolorflag = 2;
-                        Log.d(TAG, "=========1111111111======== 12");
-                    } else if (upcolorflag == 2 && downcolorflag == 1) {
-                        downcolorflag = 0;
-                        upcolorflag = 0;
-                        ((Button) v.findViewById(R.id.btn_Fail)).performClick();
-                        Log.d(TAG, "=========1111111111======== 11");
-                    }
-                } else {
-                    if (upcolorflag == 0 && downcolorflag == 0) {
-                        downcolorflag = 1;
-                        Log.d(TAG, "=========1111111111======== 00");
-                    } else if (upcolorflag == 1 && downcolorflag == 0) {
-                        ((Button) v.findViewById(R.id.btn_Fail)).performClick();
-                        Log.d(TAG, "=========1111111111======== 10");
-                    } else if (upcolorflag == 2 && downcolorflag == 0) {
-                        downcolorflag = 1;
-                        Log.d(TAG, "=========1111111111======== 20");
-                    } else if (upcolorflag == 0 && downcolorflag == 1) {
-                        downcolorflag = 2;
-                        Log.d(TAG, "=========1111111111======== 01");
-                    } else if (upcolorflag == 1 && downcolorflag == 1) {
-                        ((Button) v.findViewById(R.id.btn_Fail)).performClick();
-                        Log.d(TAG, "=========1111111111======== 11");
-                    } else if (upcolorflag == 2 && downcolorflag == 1) {
-                        downcolorflag = 2;
-                        Log.d(TAG, "=========1111111111======== 21");
-                    } else if (upcolorflag == 1 && downcolorflag == 2) {
-                        downcolorflag = 0;
-                        upcolorflag = 0;
-                        ((Button) v.findViewById(R.id.btn_Fail)).performClick();
-                        Log.d(TAG, "=========1111111111======== 11");
-                    }
-                }
-                if (downcolorflag == 2 && upcolorflag == 2) {
-                    downcolorflag = 0;
-                    upcolorflag = 0;
-                    Log.d(TAG, "=========1111111111======== pass");
-                    ((Button) v.findViewById(R.id.btn_Pass)).performClick();
-                }
-                break;
-
-            default:
-                break;
-        }
         return true;
     }
 
     private void addWindow() {
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
 //        params.type = WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG;
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        params.flags = /*WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |*/
+        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD;
         params.width = 1;//WindowManager.LayoutParams.FILL_PARENT;
         params.height = 1;//WindowManager.LayoutParams.FILL_PARENT;
         params.format = PixelFormat.TRANSLUCENT;
@@ -230,82 +220,31 @@ public class KeyBoardTestFragment extends Fragment implements View.OnKeyListener
         windowV.requestFocus();
         windowV.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCodee, KeyEvent event) {
-                Log.d(TAG, " _____________---- onKey(),   " + event.getKeyCode());
+                Log.i(TAG, " _____________---- onKey(),   " + event.getKeyCode());
                 int keyCode = event.getKeyCode();
                 int actionCode = event.getAction();
-                Log.d(TAG, "KeyCode = " + keyCode);
-                Log.d(TAG, "actionCode = " + actionCode);
+                Log.i(TAG, "KeyCode = " + keyCode);
+                Log.i(TAG, "actionCode = " + actionCode);
                 if (!isTestKey(keyCode))
                     return false;
                 int value = 0;
-                Integer key = Integer.valueOf(keyCode);
-                value = mButtonMaps.get(key).intValue();
+                value = mButtonMaps.get(keyCode);
                 Log.d(TAG, "==================   value = " + value);
                 switch (actionCode) {
-                    case 0:
+                    case KeyEvent.ACTION_DOWN:
                         setButtonBackgroundDown(value);
-                        mButtonStatus.put(key, Integer.valueOf(1));
+                        mButtonStatus.put(keyCode, 1);
                         break;
 
-                    case 1:
+                    case KeyEvent.ACTION_UP:
                         setButtonBackgroundUp(value);
                         checkKeyTestOver();
-                        mButtonStatus.put(key, Integer.valueOf(1));
-                        if (keyCode == 24) {
-                            if (upcolorflag == 0 && downcolorflag == 0) {
-                                upcolorflag = 1;
-                                Log.d(TAG, "=========1111111111======== 00");
-                            } else if (upcolorflag == 0 && downcolorflag == 1) {
-                                downcolorflag = 0;
-                                upcolorflag = 0;
-                            } else if (upcolorflag == 0 && downcolorflag == 2) {
-                                upcolorflag = 1;
-                                Log.d(TAG, "=========1111111111======== 02");
-                            } else if (upcolorflag == 1 && downcolorflag == 0) {
-                                upcolorflag = 2;
-                                Log.d(TAG, "=========1111111111======== 10");
-                            } else if (upcolorflag == 1 && downcolorflag == 1) {
-                                downcolorflag = 0;
-                                upcolorflag = 0;
-                                Log.d(TAG, "=========1111111111======== 11");
-                            } else if (upcolorflag == 1 && downcolorflag == 2) {
-                                upcolorflag = 2;
-                                Log.d(TAG, "=========1111111111======== 12");
-                            } else if (upcolorflag == 2 && downcolorflag == 1) {
-                                downcolorflag = 0;
-                                upcolorflag = 0;
-                                Log.d(TAG, "=========1111111111======== 11");
-                            }
-                        } else {
-                            if (upcolorflag == 0 && downcolorflag == 0) {
-                                downcolorflag = 1;
-                                Log.d(TAG, "=========1111111111======== 00");
-                            } else if (upcolorflag == 1 && downcolorflag == 0) {
-                                downcolorflag = 0;
-                                upcolorflag = 0;
-                                Log.d(TAG, "=========1111111111======== 10");
-                            } else if (upcolorflag == 2 && downcolorflag == 0) {
-                                downcolorflag = 1;
-                                Log.d(TAG, "=========1111111111======== 20");
-                            } else if (upcolorflag == 0 && downcolorflag == 1) {
-                                downcolorflag = 2;
-                                Log.d(TAG, "=========1111111111======== 01");
-                            } else if (upcolorflag == 1 && downcolorflag == 1) {
-                                downcolorflag = 0;
-                                upcolorflag = 0;
-                                Log.d(TAG, "=========1111111111======== 11");
-                            } else if (upcolorflag == 2 && downcolorflag == 1) {
-                                downcolorflag = 2;
-                                Log.d(TAG, "=========1111111111======== 21");
-                            } else if (upcolorflag == 1 && downcolorflag == 2) {
-                                downcolorflag = 0;
-                                upcolorflag = 0;
-                                Log.d(TAG, "=========1111111111======== 11");
-                            }
-                        }
-                        if (downcolorflag == 2 && upcolorflag == 2) {
-                            downcolorflag = 0;
-                            upcolorflag = 0;
+                        mButtonStatus.put(keyCode, 1);
+                        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+
+                        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+                        }else if(keyCode == KeyEvent.KEYCODE_POWER){
+
                         }
                         break;
                     default:
@@ -339,12 +278,10 @@ public class KeyBoardTestFragment extends Fragment implements View.OnKeyListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.key_test, container, false);
-        //steven
-        v.findViewById(R.id.bt_menu).setVisibility(View.INVISIBLE);
-        v.findViewById(R.id.bt_home).setVisibility(View.INVISIBLE);
-        v.findViewById(R.id.bt_back).setVisibility(View.INVISIBLE);
         v.setOnKeyListener(this);
         initButtonsMaps();
+        tip = (TextView) v.findViewById(R.id.key_test_tip);
+        group = v.findViewById(R.id.key_btn_group);
         ((TestItemActivity) getActivity()).disableButton(R.id.btn_next);
         return v;
     }

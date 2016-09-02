@@ -83,7 +83,6 @@ public class ChargingTestFragment extends Fragment {
 
             int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
             int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
-            Log.e("Jeffy", "plugged:" + plugged);
 
             int current = -1;
             String statusString = "";
