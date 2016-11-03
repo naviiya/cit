@@ -4,11 +4,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.PixelFormat;
+import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -17,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +31,7 @@ import java.util.List;
 
 public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
 
+    private static final String TAG = CameraPreview.class.getSimpleName();
     private SurfaceView mSurfaceView;
     private SurfaceHolder mHolder;
     private Camera.Size mPreviewSize;
@@ -43,6 +44,8 @@ public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, 
     //private int mCurrentCameraId = 0;
     private int screenWidth;
     private int screenHeight;
+    private List<Camera.Size> mSupportedPreviewSizes;
+    private int mParamIndex;
 
     public CameraPreview(Context context, SurfaceView sv) {
         super(context);
@@ -60,15 +63,10 @@ public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, 
         screenHeight = dm.heightPixels;
     }
 
-    public void setCamera(Camera camera) {
-        mCamera = camera;
-        initCamera();
-    }
-
     public void initCamera() {
-        if (mCamera != null) {
+      /*  if (mCamera != null) {
             Camera.Parameters params = mCamera.getParameters();
-            //mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
+            mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
             requestLayout();
             if (mPreviewSize == null) {
                 mPreviewSize = findBestPreviewResolution();
@@ -79,6 +77,9 @@ public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, 
             if (adapterSize != null) {
                 params.setPictureSize(adapterSize.width, adapterSize.height);
             }
+            int count = mSupportedPreviewSizes.size();
+            mParamIndex = 0;
+            mPreviewSize = mSupportedPreviewSizes.get(mParamIndex);
             if (mPreviewSize != null) {
                 params.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
             }
@@ -93,7 +94,7 @@ public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, 
             setDispaly(params, mCamera);
             //setCameraDisplayOrientation((Activity) mContext, mCurrentCameraId, mCamera);
             mCamera.setParameters(params);
-        }
+        }*/
     }
 
     //控制图像的正确显示方向
@@ -191,11 +192,17 @@ public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, 
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
+        Log.i(TAG, "surfaceCreated: ");
         // The Surface has been created, acquire the camera and tell it where
         // to draw.
-        try {
+      /*  try {
             if (mCamera != null) {
+                Camera.Parameters parameters = mCamera.getParameters();
+                parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+                mCamera.setParameters(parameters);
                 mCamera.setPreviewDisplay(holder);
+                mCamera.startPreview();
+                reAutoFocus();
             }
         } catch (IOException e) {
             if (null != mCamera) {
@@ -204,32 +211,97 @@ public class CameraPreview extends ViewGroup implements SurfaceHolder.Callback, 
 
             }
             e.printStackTrace();
+        }*/
+    }
+    public void setCamera(Camera camera) {
+        if(camera == null){
+            if(mCamera != null){
+                mCamera.release();
+            }
         }
+        mCamera = camera;
     }
 
+
+    private boolean inPreview=false;
+    private boolean cameraConfigured=false;
+    private Camera.Size getBestPreviewSize(int width, int height,
+                                           Camera.Parameters parameters) {
+        Camera.Size result=null;
+        for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
+            if (size.width <= width && size.height <= height) {
+                if (result == null) {
+                    result=size;
+                }
+                else {
+                    int resultArea=result.width * result.height;
+                    int newArea=size.width * size.height;
+                    if (newArea > resultArea) {
+                        result=size;
+                    }
+                }
+            }
+        }
+        return(result);
+    }
+    private Camera.Size getSmallestPictureSize(Camera.Parameters parameters) {
+        Camera.Size result=null;
+        for (Camera.Size size : parameters.getSupportedPictureSizes()) {
+            if (result == null) {
+                result=size;
+            }
+            else {
+                int resultArea=result.width * result.height;
+                int newArea=size.width * size.height;
+                if (newArea < resultArea) {
+                    result=size;
+                }
+            }
+        }
+        return(result);
+    }
+    private void initPreview(int width, int height) {
+        Log.i(TAG, "initPreview: width = " + width + " height = " + height);
+        if (mCamera != null && mHolder.getSurface() != null) {
+            try {
+                mCamera.setPreviewDisplay(mHolder);
+            }
+            catch (Throwable t) {
+                Log.e(TAG, "Exception in setPreviewDisplay()", t);
+            }
+            if (!cameraConfigured) {
+                Camera.Parameters parameters=mCamera.getParameters();
+                Camera.Size size=getBestPreviewSize(width, height, parameters);
+                Camera.Size pictureSize=getSmallestPictureSize(parameters);
+                if (size != null && pictureSize != null) {
+                    parameters.setPreviewSize(size.width, size.height);
+                    parameters.setPictureSize(pictureSize.width,
+                            pictureSize.height);
+                    parameters.setPictureFormat(ImageFormat.JPEG);
+                    mCamera.setParameters(parameters);
+                    cameraConfigured=true;
+                }
+            }
+        }
+    }
+    private void startPreview() {
+        if (cameraConfigured && mCamera != null) {
+            mCamera.startPreview();
+            inPreview=true;
+        }
+    }
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+        Log.i(TAG, "surfaceChanged: ");
         if (holder.getSurface() == null) {
             return;
         }
-        if (mCamera != null) {
-            Camera.Parameters parameters = mCamera.getParameters();
-            parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-            mCamera.setParameters(parameters);
-            try {
-                mCamera.setPreviewDisplay(holder);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mCamera.startPreview();
-            reAutoFocus();
-        }
+        initPreview(w, h);
+        startPreview();
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         // Surface will be destroyed when we return, so stop the preview.
-        if (mCamera != null) {
-            mCamera.stopPreview();
-        }
+        Log.i(TAG, "surfaceDestroyed: ");
     }
 
     /**

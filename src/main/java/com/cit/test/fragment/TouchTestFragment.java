@@ -76,6 +76,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
 
     @Override
     public void onDestroy() {
+        removeCoverView();
         super.onDestroy();
         if(timer != null){
             timer.cancel();
@@ -87,7 +88,7 @@ public class TouchTestFragment extends Fragment implements TouchTestView.TouchCo
         manager = ((WindowManager) getActivity()
                 .getSystemService(Context.WINDOW_SERVICE));
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
-        localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         localLayoutParams.gravity = Gravity.TOP;
         localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
                 WindowManager.LayoutParams.FLAG_FULLSCREEN |

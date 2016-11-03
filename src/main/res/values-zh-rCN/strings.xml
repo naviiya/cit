@@ -302,7 +302,7 @@
     <string name="check_version_detail">当前软件版本为：\n%1$s\n请核对版本后点击“确定”后进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="speaker_test_info">请检查扬声器是否正常</string>
     <string name="usb_test_info">连接键盘或者U盘。如果系统识别链接设备（保证器件焊接正常），确认测试正常后点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
-    <string name="brightness_test_info">测试过程中背景灯会先关闭，然后重新点亮至最亮，确认测试正常后点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="brightness_test_info">测试过程中背景灯会先关闭2秒，然后重新点亮至最亮，确认测试正常后点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="vol_up">音量上键</string>
     <string name="vol_down">音量下键</string>
     <string name="t_flash_card_test_detail">请确认存储卡信息：\n可用空间：%1$s\n总空间：%2$s</string>
@@ -311,15 +311,16 @@
     <string name="mhl_test_detail">连接HML数据线到显示器上，如果显示正常点击确定进入到下一项，如果失败点击失败按钮退出测试，点击重测按钮可以重新测量此项。</string>
     <string name="main_audio_speaker_test_detail">对着MIC说话并确认Speaker有正常的声音发出后，点击“确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="plug_headset">请插入耳机！</string>
-    <string name="test_headset">请测试耳机听筒！</string>
+    <string name="ready_test_headset">耳机已插入，按下hook键开始测试耳机听筒！</string>
+    <string name="test_headset">开始测试耳机听筒！</string>
     <string name="click_screen_to_capture">点击屏幕开始拍照</string>
     <string name="link_to_glass">请连接眼镜</string>
     <string name="glass_connected">眼镜已连接</string>
     <string name="charging_tip">请插入充电器</string>
     <string name="wifi_search">正在搜索：</string>
-    <string name="wifi_result">找到的wifi设备：</string>
-    <string name="open_wifi">正在打开wifi</string>
-    <string name="wifi_fail">搜索失败，未找到可连接的wifi</string>
+    <string name="wifi_result">找到的WLAN设备：</string>
+    <string name="open_wifi">正在打开WLAN</string>
+    <string name="wifi_fail">搜索失败，未找到可连接的WLAN</string>
     <string name="no_wifi">点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="no_bluetooth">点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="bluetooth_search">正在搜索可配对的蓝牙设备：</string>
@@ -329,11 +330,11 @@
     <string name="no_gps">点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="open_gps">正在打开GPS</string>
     <string name="search_gps">正在搜索GPS卫星</string>
-    <string name="search_gps_fail">GPS卫星数量为0</string>
+    <string name="search_gps_fail">正在搜索中，GPS卫星数量为0</string>
     <string name="search_gps_success">GPS卫星数量为%1$s</string>
     <string name="gps_on">GPS已开启</string>
     <string name="gps_off">GPS已关闭</string>
-    <string name="rgb_tip">指示灯显示三色（红，黄，蓝）依此显示，确认指示灯显示正常后，点击”确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
+    <string name="rgb_tip">1秒后指示灯将依次显示红，绿，蓝三种颜色，确认指示灯显示正常后，点击”确定”进入下一项测试；如失败，点击“失败”后直接退出测试模式；点击“重测”可重新测试此项</string>
     <string name="brightness_reback">测试完毕，将恢复至原来亮度</string>
     <string name="touch_test_tip">请用手指按照引导框提示划口型和又型，注意要划到框内</string>
     <string name="test_fail">测试失败</string>
@@ -364,5 +365,15 @@
     <string name="master_clear_progress_text">请稍候...</string>
     <string name="insert_glxss">请连接眼镜</string>
     <string name="glxss_connected">眼镜已连接</string>
+    <string name="main_audio_test_tip">请从麦克说话，测试扬声器是否能够听到声音</string>
+    <string name="press_hook">耳机按键测试已经完成，开始测试！</string>
+    <string name="result">Result:</string>
+    <string name="timer">计时</string>
+    <string name="current_search">已经搜索%1$d秒</string>
+    <string name="headset_up">耳机音量增加</string>
+    <string name="headset_down">耳机音量减小</string>
+    <string name="headset_hook">耳机hook键</string>
+    <string name="ready_test_headset_key">耳机已经插入，请按照以下的顺序按下耳机上的相应按键</string>
+    <string name="F12_key">F12按键</string>
 
 </resources>

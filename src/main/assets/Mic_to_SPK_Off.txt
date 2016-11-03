@@ -1,0 +1,53 @@
+
+tinymix "pcm2_in gain 0 mute" 1                  
+tinymix "codec_out0 gain 0 mute" 1               
+tinymix "Speaker Playback Switch" 0 0             
+tinymix "OUT Playback Switch" 0 0                 
+tinymix "DAC1 Playback Volume" 175 175             
+tinymix "Ext Spk Switch" 0                       
+tinymix "SPOR MIX SPKVOL R Switch" 0             
+tinymix "SPOL MIX SPKVOL R Switch" 0             
+tinymix "SPK MIXR DAC R1 Switch" 0               
+tinymix "SPK MIXL DAC L1 Switch" 0 
+tinymix "Stereo DAC MIXL DAC R1 Switch" 0 
+tinymix "Stereo DAC MIXR DAC R1 Switch" 0             
+tinymix "Stereo DAC MIXR DAC R1 Switch" 0       
+tinymix "Stereo DAC MIXL DAC L1 Switch" 0        
+tinymix "DAC1 MIXR DAC1 Switch"  0               
+tinymix "DAC1 MIXL DAC1 Switch" 0                
+tinymix "hf_out mix 0 pcm2_in" 0                 
+tinymix "vad_out mix 0 codec_in0" 1              
+tinymix "vad_out mix 0 txspeech_in" 0            
+tinymix "sprot_loop_out mix 0 media_loop1_in" 0  
+tinymix "media_loop1_out mix 0 pcm2_in"  0       
+tinymix "codec_out0 mix 0 sprot_loop_in" 0       
+
+tinymix "pcm1_out gain 0 mute" 1
+tinymix "codec_in0 gain 0 mute" 1
+tinymix "ADC Capture Switch" 0 0
+tinymix "ADC Capture Volume" 75 75
+tinymix "Int Mic Switch" 0
+tinymix "Sto1 ADC MIXR ADC2 Switch" 0
+tinymix "Sto1 ADC MIXL ADC2 Switch" 0
+tinymix "speech_out mix 0 codec_in0" 0
+tinymix "pcm1_out mix 0 codec_in0" 0
+
+tinymix "DAC1 MIXL Stereo ADC Switch" 0
+tinymix "DAC1 MIXR Stereo ADC Switch" 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

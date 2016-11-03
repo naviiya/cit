@@ -24,7 +24,6 @@ import com.cit.test.TestItemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
 /**
  */
@@ -83,7 +82,6 @@ public class BlueToothFragment extends Fragment{
         }
 
         public void add(String dev){
-            mList.clear();
             mList.add(dev);
             notifyDataSetChanged();
         }
@@ -124,6 +122,7 @@ public class BlueToothFragment extends Fragment{
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
         }else {
+            mEnable = mBluetoothAdapter.isEnabled();
             openBluetooth();
         }
     }
@@ -134,10 +133,9 @@ public class BlueToothFragment extends Fragment{
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                mBluetoothAdapter.cancelDiscovery();
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-//                mList.add(device.getName() + "\n" + device.getAddress());
                 String dev = device.getName() + "\n" + device.getAddress();
+                Log.i(TAG, "onReceive: " + dev);
                 adapter.add(dev);
                 searchSuccess = true;
                 mHandler.sendEmptyMessage(SEARCH_BLUETOOTH_SUCCESS);
@@ -152,16 +150,15 @@ public class BlueToothFragment extends Fragment{
     private  static final String ACTION_CONNECTION_STATE_CHANGED = "android.bluetooth.headset.profile.action.CONNECTION_STATE_CHANGED";
     private  static final String ACTION_AUDIO_STATE_CHANGED = "android.bluetooth.headset.profile.action.AUDIO_STATE_CHANGED";
 
+    private boolean mEnable;
     private void checkBlueToothIsStarted(){
-
         if(mBluetoothAdapter.isEnabled()){
             mHandler.sendEmptyMessageDelayed(SEARCH_BLUETOOTH,200);
         }else {
-            mHandler.sendEmptyMessageDelayed(SEARCH_BLUETOOTH_FAIL,200);
+            mHandler.sendEmptyMessageDelayed(OPEN_BLUETOOTH,200);
         }
     }
    private void openBluetooth(){
-
        if (!mBluetoothAdapter.isEnabled()) {
            mBluetoothAdapter.enable();
            mHandler.sendEmptyMessageDelayed(OPEN_BLUETOOTH,3000);
@@ -170,6 +167,11 @@ public class BlueToothFragment extends Fragment{
        }
    }
 
+    private void stopBlueToothIfNecessary(){
+        if(!mEnable){
+            mBluetoothAdapter.disable();
+        }
+    }
 
     private static final int OPEN_BLUETOOTH = 1;
     private static final int SEARCH_BLUETOOTH = 2;
@@ -215,6 +217,7 @@ public class BlueToothFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopBlueToothIfNecessary();
         mHandler.removeCallbacksAndMessages(null);
     }
 }

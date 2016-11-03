@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+
+	<TextView
+	    android:id="@+id/runin_title"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:gravity="center"
+	    android:text="@string/runin_playvideo__title"
+	    android:textSize="32sp" />
+
+	<SurfaceView android:id="@+id/surfaceView"
+		android:layout_width="match_parent"
+		android:layout_height="425dip"
+		android:layout_below="@id/runin_title" />
+    
+	<TextView android:id="@+id/textview1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_below="@id/surfaceView"
+		android:textColor="#ffffff00"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__set" >
+	</TextView>
+	<TextView android:id="@+id/runin_set_time"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp"
+		android:layout_below="@id/surfaceView"
+		android:layout_toRightOf="@id/textview1"
+		android:textColor="#ffffff00"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__time_set" >
+	</TextView>
+	<TextView android:id="@+id/textview2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_below="@id/textview1"
+		android:textColor="#ff00ff00"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__done" >
+	</TextView>
+	<TextView android:id="@+id/runin_current_time"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp"
+		android:layout_below="@id/runin_set_time"
+		android:layout_toRightOf="@id/textview2"
+		android:textColor="#ff00ff00"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__time_done" >
+	</TextView>
+	
+	<TextView android:id="@+id/textview_cpu_temp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="300dp"
+		android:layout_below="@id/surfaceView"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__cpu_temp" >
+	</TextView>
+	<TextView android:id="@+id/runin_cpu_temp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/surfaceView"
+		android:layout_toRightOf="@id/textview_cpu_temp"
+		android:layout_marginLeft="10dp"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__cpu_temp_num" >
+	</TextView>
+	<TextView android:id="@+id/textview_bat_temp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="300dp"
+		android:layout_below="@id/textview_cpu_temp"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__bat_temp" >
+	</TextView>
+	<TextView android:id="@+id/runin_bat_temp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/runin_cpu_temp"
+		android:layout_toRightOf="@id/textview_bat_temp"
+		android:layout_marginLeft="10dp"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__bat_temp_num" >
+	</TextView>
+
+	<TextView android:id="@+id/textview_bat_capacity"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="500dp"
+		android:layout_below="@id/surfaceView"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__bat_cap" >
+	</TextView>
+	<TextView android:id="@+id/runin_bat_capacity"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/surfaceView"
+		android:layout_toRightOf="@id/textview_bat_capacity"
+		android:layout_marginLeft="10dp"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__bat_cap_num" >
+	</TextView>
+	<TextView android:id="@+id/textview_bat_current"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="500dp"
+		android:layout_below="@id/textview_bat_capacity"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__bat_curr" >
+	</TextView>
+	<TextView android:id="@+id/runin_bat_current"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/runin_bat_capacity"
+		android:layout_toRightOf="@id/textview_bat_current"
+		android:layout_marginLeft="10dp"
+		android:textColor="#ffffffff"
+		android:textSize="24sp"
+		android:text="@string/runin_playvideo__bat_curr_num" >
+	</TextView>
+<!--
+    <Button
+        android:id="@id/runin_btn_stop"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="停止" />
+ -->
+
+</RelativeLayout>

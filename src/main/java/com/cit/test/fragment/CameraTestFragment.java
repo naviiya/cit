@@ -3,17 +3,18 @@ package com.cit.test.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
+import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -23,14 +24,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -43,8 +46,6 @@ import com.cit.test.TestItemActivity;
 import com.cit.test.Utils;
 import com.cit.test.view.CameraPreview;
 
-import junit.framework.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,26 +55,25 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
-
 /**
  *
  */
 public class CameraTestFragment extends Fragment implements View.OnTouchListener {
 
     private static final String TAG = "CameraTestFragment";
-    private ImageView cameraBg;
-
-    private Bitmap bmp_selectedPhoto;
-    private Uri uri;
     private View v;
     private TextView openCamera;
+    private SurfaceHolder mSurfaceViewHolder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.camera_test,container,false);
         mSurfaceView = (SurfaceView) v.findViewById(R.id.surfaceView);
+        mSurfaceViewHolder = mSurfaceView.getHolder();
+        mSurfaceViewHolder.addCallback(new MySurfaceViewCallback());
+        mSurfaceViewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        mSurfaceViewHolder.setKeepScreenOn(true);
         openCamera = (TextView) v.findViewById(R.id.open_camera);
         focusIndex = v.findViewById(R.id.focus_index);
         v.setOnTouchListener(this);
@@ -92,25 +92,119 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
     private final int PROCESS = 1;
     private CameraPreview preview;
     private Camera camera;
-    private Context mContext;
     private View focusIndex;
-    private ImageView flashBtn;
     private int mCurrentCameraId = 0; // 1是前置 0是后置
     private SurfaceView mSurfaceView;
-//    private CameraGrid mCameraGrid;
 
-    private Button mBtnSearch;
-    private Button mBtnTakePhoto;
+    private Camera optimizeCameraConfig(Camera camera) {
+        // 设置camera预览的角度，因为默认图片是倾斜90度的
+        // mCamera.setDisplayOrientation(90);
 
+        int previewWidth = 0;
+        int previewHeight = 0;
+        WindowManager wm = (WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE);// 获取窗口的管理器
+        Display display = wm.getDefaultDisplay();// 获得窗口里面的屏幕
+        DisplayMetrics dm = new DisplayMetrics();
+        display.getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+        Camera.Parameters parameters = camera.getParameters();
+        // parameters.setFlashMode(Parameters.FLASH_MODE_TORCH); //开启闪光灯,支持
+        setDisplay(parameters, camera);
+        // parameters.setRotation(90);
+        // parameters.setPreviewFrameRate(3);// 每秒3帧 每秒从摄像头里面获得3个画面,
+        // 某些机型（红米note2）不支持
+        parameters.setPictureFormat(PixelFormat.JPEG);// 设置照片输出的格式
+        parameters.set("jpeg-quality", 100);// 设置照片质量
+        try {
+            // 选择合适的预览尺寸
+            List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();
+            Log.i(TAG, "optimizeCameraConfig: 合适的预览尺寸个数为：" + sizeList.size());
+            for (int i = 0; i < sizeList.size(); i++) {
+                Log.i(TAG, "合适的预览尺寸" + i + " ： width = " + sizeList.get(i).width
+                + " height = " + sizeList.get(i).height);
+            }
 
+            if(sizeList.size() > 1){
+                for (int i = 0; i < sizeList.size(); i++) {
+                    Camera.Size cur = sizeList.get(i);
+                    int w = cur.width;
+                    int h = cur.height;
+                    if (cur.width >= previewWidth
+                            && cur.height >= previewHeight) {
+                        previewWidth = cur.width;
+                        previewHeight = cur.height;
+                        break;
+                    }
+                }
+            }
+            parameters.setPreviewSize(previewWidth, previewHeight); // 获得摄像区域的大小
+            parameters.setPictureSize(previewWidth, previewHeight); // 获得保存图片的大小
+            // parameters.setPreviewSize(display.getWidth(),
+            // display.getWidth()); // 获得摄像区域的大小
+            // parameters.setPictureSize(display.getWidth(),
+            // display.getWidth());// 设置拍出来的屏幕大小
 
-    private void InitData() {
-        preview = new CameraPreview(getActivity(), mSurfaceView);
-        preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        ((FrameLayout) v.findViewById(R.id.layout)).addView(preview);
-        preview.setKeepScreenOn(true);
-        mSurfaceView.setOnTouchListener(this);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        try {
+            camera.setPreviewDisplay(mSurfaceViewHolder);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        camera.setParameters(parameters);// 把上面的设置 赋给摄像头
+        camera.startPreview();// 开始预览
+//        camera.cancelAutoFocus();// 2如果要实现连续的自动对焦，这一句必须加上
+        inPreviewMode = true;
+        return camera;
+    }
+    // 控制图像的正确显示方向
+    private void setDisplay(Camera.Parameters parameters, Camera camera) {
+        if (Integer.parseInt(Build.VERSION.SDK) >= 8) {
+            camera.setDisplayOrientation(90);
+        } else {
+            parameters.setRotation(90);
+        }
+
+    }
+
+    private class MySurfaceViewCallback implements SurfaceHolder.Callback{
+
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            if(camera != null){
+                camera.stopPreview();
+                camera.release();
+                camera = null;
+            }
+            try {
+                camera = Camera.open();
+            }catch (Exception e){
+                Log.e(TAG, "surfaceCreated: ", e);
+            }
+            //设置camera参数并且开启预览模式
+            camera = optimizeCameraConfig(camera);
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            Log.i(TAG, "surfaceChanged: ");
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            if(camera != null){
+                if(inPreviewMode){
+                    camera.stopPreview();
+                    inPreviewMode = false;
+                }
+                camera.stopPreview();
+                camera.release();
+                camera = null;
+            }
+        }
     }
 
 
@@ -163,13 +257,9 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
         }
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        InitData();
-    }
-    public static final String ACTION_GLXSS_DEVICE_ATTACHED = "android.hardware.usb.action.GLXSS_DEVICE_ATTACHED";
-    public static final String ACTION_GLXSS_DEVICE_DETACHED = "android.hardware.usb.action.GLXSS_DEVICE_DETACHED";
+
+    public static final String ACTION_GLXSS_DEVICE_ATTACHED = UsbManager.ACTION_MRDEVICE_ATTACHED;
+    public static final String ACTION_GLXSS_DEVICE_DETACHED = UsbManager.ACTION_MRDEVICE_DETACHED;
     @Override
     public void onResume() {
         super.onResume();
@@ -187,29 +277,14 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
         startCamera();
     }
 
+    private boolean inPreviewMode;
     private void startCamera() {
-        int numCams = Camera.getNumberOfCameras();
-        if (numCams > 0) {
-            try {
-                mCurrentCameraId = 0;
-                camera = Camera.open(mCurrentCameraId);
-                camera.startPreview();
-                preview.setCamera(camera);
-                preview.reAutoFocus();
-            } catch (RuntimeException ex) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.camera_not_found), Toast.LENGTH_LONG).show();
-            }
-        }
+        Log.i(TAG, "startCamera: ");
         mSurfaceView.setVisibility(View.VISIBLE);
         openCamera.setVisibility(View.GONE);
         ((TestItemActivity)getActivity()).resetButton();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        getActivity().unregisterReceiver(mReceiver);
-    }
 
     private GlxssReceiver mReceiver;
     private class GlxssReceiver extends BroadcastReceiver {
@@ -235,25 +310,15 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
 
     @Override
     public void onPause() {
-        stopCamera();
         super.onPause();
-
+        stopCamera();
+        getActivity().unregisterReceiver(mReceiver);
     }
 
     private void stopCamera() {
-        if (camera != null) {
-            camera.stopPreview();
-            preview.setCamera(null);
-            camera.release();
-            camera = null;
-            preview.setNull();
-        }
-    }
-
-
-    private void resetCam() {
-        camera.startPreview();
-        preview.setCamera(camera);
+        mSurfaceView.setVisibility(View.GONE);
+        openCamera.setVisibility(View.VISIBLE);
+        Log.i(TAG, "stopCamera: ");
     }
 
 
@@ -273,39 +338,39 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
         public void onPictureTaken(byte[] data, Camera camera) {
 
             new SaveImageTask(data).execute();
-            resetCam();
         }
     };
 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                preview.pointFocus(event);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(
-                focusIndex.getLayoutParams());
-        layout.setMargins((int) event.getX() - 60, (int) event.getY() - 60, 0,0);
-
-        focusIndex.setLayoutParams(layout);
-        focusIndex.setVisibility(View.VISIBLE);
-
-        ScaleAnimation sa = new ScaleAnimation(3f, 1f, 3f, 1f,
-                ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-                ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(800);
-        focusIndex.startAnimation(sa);
-        handler.postAtTime(new Runnable() {
-            @Override
-            public void run() {
-                focusIndex.setVisibility(View.INVISIBLE);
-            }
-        }, 800);
+//        try {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//                preview.pointFocus(event);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        if(inPreviewMode) {
+//            RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(
+//                    focusIndex.getLayoutParams());
+//            layout.setMargins((int) event.getX() - 60, (int) event.getY() - 60, 0, 0);
+//
+//            focusIndex.setLayoutParams(layout);
+//            focusIndex.setVisibility(View.VISIBLE);
+//
+//            ScaleAnimation sa = new ScaleAnimation(3f, 1f, 3f, 1f,
+//                    ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
+//                    ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
+//            sa.setDuration(800);
+//            focusIndex.startAnimation(sa);
+//            handler.postAtTime(new Runnable() {
+//                @Override
+//                public void run() {
+//                    focusIndex.setVisibility(View.INVISIBLE);
+//                }
+//            }, 800);
+//        }
         return false;
     }
 
@@ -381,7 +446,6 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
             super.onPostExecute(path);
 
             if (!TextUtils.isEmpty(path)) {
-
                 Log.d("DemoLog", "path=" + path);
                 handler.sendEmptyMessage(DISMISS_DIALOG);
                 ((TestItemActivity)getActivity()).displayCameraPhoto(path);
@@ -568,7 +632,7 @@ public class CameraTestFragment extends Fragment implements View.OnTouchListener
             preview.setCamera(camera);
             camera.startPreview();
         } catch (Exception e) {
-            Toast.makeText(mContext, "未发现相机", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "未发现相机", Toast.LENGTH_LONG).show();
         }
 
     }

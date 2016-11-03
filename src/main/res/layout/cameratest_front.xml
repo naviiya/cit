@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/SurfaceView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" >
+		
+	<TextView
+		    android:id="@+id/title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/frontcameratitle"
+		    android:textSize="25sp" />
+            
+    <TextView
+        android:id="@+id/resultView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/btnSnapshot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/resultView"
+        android:layout_below="@+id/resultView"
+        android:text="@string/cameratest_front__snapshot"
+        android:visibility="invisible" />
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_Pass"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="@string/btnPassText"
+            android:visibility="visible"             
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_Fail"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="@string/btnFailText"
+            android:visibility="visible" 
+            android:textStyle="bold" />
+        
+        <Button
+            android:id="@+id/btn_Skip"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="@string/btnSkipText"
+            android:visibility="visible" 
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/cameratest_front__preview"
+        android:textColor="@android:color/holo_orange_light"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/btnSnapshotPic"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_above="@+id/btnPreview"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/cameratest_front__takephoto"
+        android:textColor="@android:color/holo_green_light"
+        android:textStyle="bold"
+        android:visibility="visible" />
+    
+	</RelativeLayout>
+</FrameLayout>

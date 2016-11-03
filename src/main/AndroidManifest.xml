@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cit.test" android:sharedUserId="android.uid.system">
+    package="com.cit.test"
+    android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--
@@ -48,8 +49,8 @@
         <uses-permission android:name="android.permission.INJECT_EVENTS" />
         <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
         <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
-        <uses-permission android:name="android.permission.SHUTDOWN"/>
     -->
+    <uses-permission android:name="android.permission.SHUTDOWN"/>
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BATTERY_STATS" />
@@ -111,7 +112,27 @@
         <activity android:name=".RuninTestActivity"/>
         <activity android:name=".CitTest"/>
         <activity android:name=".TestItemActivity"/>
+        <activity android:name=".runintest.GpsTestActivity"/>
+        <activity android:name=".runintest.DeviceTest"/>
+        <activity android:name=".runintest.pcba.CameraTest_FrontActivity"/>
+        <activity android:name=".runintest.pcba.CameraTest_RearActivity"/>
+        <activity android:name=".runintest.pcba.ConnectTest_BluetoothActivity"/>
+        <activity android:name=".runintest.pcba.StorageTest_DDRActivity"/>
+        <activity android:name=".runintest.pcba.StorageTest_eMMCActivity"/>
+        <activity android:name=".runintest.pcba.StorageTest_SDCardSlotActivity"/>
+        <activity android:name=".runintest.runin.RebootActivity"/>
+        <activity android:name=".runintest.runin.BatCapCtlActivity"/>
+        <activity android:name=".runintest.runin.BatteryActivity"/>
+        <activity android:name=".runintest.runin.StandbyActivity"/>
+        <activity android:name=".runintest.runin.ThermalActivity"/>
+        <activity android:name=".runintest.runin.VideoPlayActivity"/>
         <service android:name=".socket.AndroidService"></service>
+        <receiver android:name=".socket.ServiceBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".fragment.HeadsetTestFragment$HeadsetReceiver"/>
     </application>
 
 </manifest>

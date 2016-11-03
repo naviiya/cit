@@ -6,23 +6,21 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
-import com.cit.test.fragment.AudioHeadsetTestFragment;
 import com.cit.test.fragment.BlueToothFragment;
 import com.cit.test.fragment.BrightnessTestFragment;
-import com.cit.test.fragment.CameraPhotoTestFragment;
 import com.cit.test.fragment.CameraTestFragment;
 import com.cit.test.fragment.ChargingTestFragment;
 import com.cit.test.fragment.CheckVersionFragment;
 import com.cit.test.fragment.EMMCTestFragment;
 import com.cit.test.fragment.GpsTestFragment;
-import com.cit.test.fragment.MHLTestFragment;
+import com.cit.test.fragment.HeadsetTestFragment;
 import com.cit.test.fragment.KeyBoardTestFragment;
 import com.cit.test.fragment.LcdTestFragment;
 import com.cit.test.fragment.MainAudioTestFragment;
-import com.cit.test.fragment.PassStorageTestFragment;
 import com.cit.test.fragment.RGBTestFragment;
 import com.cit.test.fragment.SpeakerTestFragment;
 import com.cit.test.fragment.TFlashCardTestFragment;
+import com.cit.test.fragment.TmpKeyTestFragment;
 import com.cit.test.fragment.TouchTestFragment;
 import com.cit.test.fragment.UsbTestFragment;
 import com.cit.test.fragment.WIFITestFragment;
@@ -43,14 +41,16 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         bindPreference();
     }
 
+
+
+
     private void bindPreference() {
         Preference checkVersion = findPreference("check_version");
         Preference lcdTest = findPreference("lcd_test");
         Preference screenTest = findPreference("screen_test");
         Preference speakerTest = findPreference("speaker_test");
         Preference backlightTest = findPreference("backlight_test");
-        // hide
-//        Preference mhlTest = findPreference("MHL_test");
+        Preference f12Test = findPreference("F12_test");
         Preference usbTest = findPreference("USB_test");
         Preference mainAudioTest = findPreference("main_audio_test");
         Preference earphoneTest = findPreference("earphone_test");
@@ -59,35 +59,29 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         Preference emmcTest = findPreference("emmc_test");
         Preference chargingTest = findPreference("charging_test");
         Preference cameraTest = findPreference("camera_test");
-        //hide
-//        Preference cameraPhotoTest = findPreference("camera_photo_test");
         Preference wifiTest = findPreference("WIFI_test");
         Preference bluetoothTest = findPreference("bluetooth_test");
         Preference gpsTest = findPreference("gps_test");
         Preference rgbTest = findPreference("rgb_test");
-        // hide
-//        Preference passStorageTest = findPreference("pass_storage_test");
+
         checkVersion.setOnPreferenceClickListener(this);
         lcdTest.setOnPreferenceClickListener(this);
         backlightTest.setOnPreferenceClickListener(this);
         screenTest.setOnPreferenceClickListener(this);
         speakerTest.setOnPreferenceClickListener(this);
-//        mhlTest.setOnPreferenceClickListener(this);
+        f12Test.setOnPreferenceClickListener(this);
         usbTest.setOnPreferenceClickListener(this);
         mainAudioTest.setOnPreferenceClickListener(this);
         earphoneTest.setOnPreferenceClickListener(this);
         keyTest.setOnPreferenceClickListener(this);
         flashTest.setOnPreferenceClickListener(this);
         emmcTest.setOnPreferenceClickListener(this);
-        // hide
-//        cameraPhotoTest.setOnPreferenceClickListener(this);
         cameraTest.setOnPreferenceClickListener(this);
         wifiTest.setOnPreferenceClickListener(this);
         bluetoothTest.setOnPreferenceClickListener(this);
         chargingTest.setOnPreferenceClickListener(this);
         gpsTest.setOnPreferenceClickListener(this);
         rgbTest.setOnPreferenceClickListener(this);
-//        passStorageTest.setOnPreferenceClickListener(this);
         // reset
         int count = 0;
         PreferenceRecorder.reset();
@@ -127,13 +121,7 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         wrapper.setIndex(count++);
         PreferenceRecorder.addPreference(wrapper);
 
-        // hide
-//        wrapper = new PreferenceWrapper();
-//        wrapper.setPreference(mhlTest);
-//        wrapper.setClazz(MHLTestFragment.class);
-//        wrapper.setSuccess(false);
-//        wrapper.setIndex(count++);
-//        PreferenceRecorder.addPreference(wrapper);
+
 
         wrapper = new PreferenceWrapper();
         wrapper.setPreference(usbTest);
@@ -143,17 +131,10 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         PreferenceRecorder.addPreference(wrapper);
 
 
-        wrapper = new PreferenceWrapper();
-        wrapper.setPreference(mainAudioTest);
-        wrapper.setClazz(MainAudioTestFragment.class);
-        wrapper.setSuccess(false);
-        wrapper.setIndex(count++);
-        PreferenceRecorder.addPreference(wrapper);
-
 
         wrapper = new PreferenceWrapper();
         wrapper.setPreference(earphoneTest);
-        wrapper.setClazz(AudioHeadsetTestFragment.class);
+        wrapper.setClazz(HeadsetTestFragment.class);
         wrapper.setSuccess(false);
         wrapper.setIndex(count++);
         PreferenceRecorder.addPreference(wrapper);
@@ -188,21 +169,7 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         wrapper.setIndex(count++);
         PreferenceRecorder.addPreference(wrapper);
 
-        wrapper = new PreferenceWrapper();
-        wrapper.setPreference(cameraTest);
-        wrapper.setClazz(CameraTestFragment.class);
-        wrapper.setSuccess(false);
-        wrapper.setIndex(count++);
-        PreferenceRecorder.addPreference(wrapper);
 
-
-        //hide
-//        wrapper = new PreferenceWrapper();
-//        wrapper.setPreference(cameraPhotoTest);
-//        wrapper.setClazz(CameraPhotoTestFragment.class);
-//        wrapper.setSuccess(false);
-//        wrapper.setIndex(count++);
-//        PreferenceRecorder.addPreference(wrapper);
 
         wrapper = new PreferenceWrapper();
         wrapper.setPreference(wifiTest);
@@ -232,14 +199,27 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         wrapper.setIndex(count++);
         PreferenceRecorder.addPreference(wrapper);
 
+        wrapper = new PreferenceWrapper();
+        wrapper.setPreference(f12Test);
+        wrapper.setClazz(TmpKeyTestFragment.class);
+        wrapper.setSuccess(false);
+        wrapper.setIndex(count++);
+        PreferenceRecorder.addPreference(wrapper);
 
-        //hide
-//        wrapper = new PreferenceWrapper();
-//        wrapper.setPreference(passStorageTest);
-//        wrapper.setClazz(PassStorageTestFragment.class);
-//        wrapper.setSuccess(false);
-//        wrapper.setIndex(count++);
-//        PreferenceRecorder.addPreference(wrapper);
+        wrapper = new PreferenceWrapper();
+        wrapper.setPreference(mainAudioTest);
+        wrapper.setClazz(MainAudioTestFragment.class);
+        wrapper.setSuccess(false);
+        wrapper.setIndex(count++);
+        PreferenceRecorder.addPreference(wrapper);
+
+        wrapper = new PreferenceWrapper();
+        wrapper.setPreference(cameraTest);
+        wrapper.setClazz(CameraTestFragment.class);
+        wrapper.setSuccess(false);
+        wrapper.setIndex(count);
+        PreferenceRecorder.addPreference(wrapper);
+
     }
 
 
@@ -250,8 +230,8 @@ public class CitTest extends PreferenceActivity implements Preference.OnPreferen
         i.putExtra("key", preference.getKey());
         i.putExtra("title", preference.getSummary());
         // clear previous
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         return true;
     }

@@ -11,4 +11,38 @@
         style="@style/font_style"
         android:layout_gravity="center"
         />
+
+    <LinearLayout
+        android:id="@+id/test_key_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        >
+        <TextView
+            android:id="@+id/headset_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/headset_up"
+            android:gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/headset_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/headset_down"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/headset_hook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/headset_hook"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            />
+
+    </LinearLayout>
 </LinearLayout>

@@ -41,6 +41,7 @@ import com.cit.test.fragment.ChargingTestFragment;
 import com.cit.test.fragment.CheckVersionFragment;
 import com.cit.test.fragment.EMMCTestFragment;
 import com.cit.test.fragment.GpsTestFragment;
+import com.cit.test.fragment.HeadsetTestFragment;
 import com.cit.test.fragment.MHLTestFragment;
 import com.cit.test.fragment.KeyBoardTestFragment;
 import com.cit.test.fragment.LcdTestFragment;
@@ -49,14 +50,19 @@ import com.cit.test.fragment.PassStorageTestFragment;
 import com.cit.test.fragment.RGBTestFragment;
 import com.cit.test.fragment.SpeakerTestFragment;
 import com.cit.test.fragment.TFlashCardTestFragment;
+import com.cit.test.fragment.TmpKeyTestFragment;
 import com.cit.test.fragment.TouchTestFragment;
 import com.cit.test.fragment.UsbTestFragment;
 import com.cit.test.fragment.WIFITestFragment;
+import com.cit.test.socket.AndroidService;
 import com.cit.test.view.InterceptTouchView;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+
 import android.service.persistentdata.PersistentDataBlockManager;
 import com.android.internal.os.storage.ExternalStorageFormatter;
 /**
@@ -83,7 +89,7 @@ public class TestItemActivity extends Activity {
             title = intent.getStringExtra("title");
         }
         setContentView(R.layout.base_layout);
-        displayStatusBarAndNavigationBar();
+        hideStatusBarAndNavigationBar();
         bindView();
     }
 
@@ -144,13 +150,17 @@ public class TestItemActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideStatusBarAndNavigationBar();
+    }
+
     public void displayPanel() {
         // show footer
         mFootView.setVisibility(View.VISIBLE);
         // show header
         header.setVisibility(View.VISIBLE);
-
-        displayStatusBarAndNavigationBar();
     }
 
     public void hidePanel() {
@@ -158,21 +168,14 @@ public class TestItemActivity extends Activity {
         mFootView.setVisibility(View.GONE);
         // hide header
         header.setVisibility(View.GONE);
-
-        hideStatusBarAndNavigationBar();
     }
 
     public void hideStatusBarAndNavigationBar() {
         View decorView = getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(option);
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
     public void displayStatusBarAndNavigationBar() {
@@ -202,7 +205,7 @@ public class TestItemActivity extends Activity {
             case MAIN_AUDIO_TEST:
                 return new MainAudioTestFragment();
             case AUDIO_HEADSET_TEST:
-                return new AudioHeadsetTestFragment();
+                return new HeadsetTestFragment();
             case KEY_TEST:
                 return new KeyBoardTestFragment();
             case TFLASHCARD_TEST:
@@ -222,10 +225,11 @@ public class TestItemActivity extends Activity {
                 return new GpsTestFragment();
             case RGB_TEST:
                 return new RGBTestFragment();
+            case F12_key_TEST:
+                return new TmpKeyTestFragment();
         }
         return null;
     }
-
 
     public static final int CHECKVERSION_TEST = 0;
     public static final int LCD_TEST = 1;
@@ -233,52 +237,75 @@ public class TestItemActivity extends Activity {
     public static final int SPEAKER_TEST = 3;
     public static final int BRIGHTNESS_TEST = 4;
     public static final int USB_TEST = 5;
-    public static final int MAIN_AUDIO_TEST = 6;
-    public static final int AUDIO_HEADSET_TEST = 7;
-    public static final int KEY_TEST = 8;
-    public static final int TFLASHCARD_TEST = 9;
-    public static final int EMMC_TEST = 10;
-    public static final int CHARGING_TEST = 11;
-    public static final int CAMERA_TEST = 12;
-    public static final int WIFI_TEST = 13;
-    public static final int BLUETOOTH_TEST = 14;
-    public static final int GPS_TEST = 15;
-    public static final int RGB_TEST = 16;
-    // hide
-//    public static final int PASS_STORAGE_TEST = 18;
+    public static final int AUDIO_HEADSET_TEST = 6;
+    public static final int KEY_TEST = 7;
+    public static final int TFLASHCARD_TEST = 8;
+    public static final int EMMC_TEST = 9;
+    public static final int CHARGING_TEST = 10;
+    public static final int WIFI_TEST = 11;
+    public static final int BLUETOOTH_TEST = 12;
+    public static final int GPS_TEST = 13;
+    public static final int RGB_TEST = 14;
+    public static final int F12_key_TEST = 15;
+    public static final int MAIN_AUDIO_TEST = 16;
+    public static final int CAMERA_TEST = 17;
 
+    public interface MyKeyListener {
+        void onKey(KeyEvent event);
+    }
+
+    private final ArrayList<MyKeyListener> keyListeners = new ArrayList<>();
+
+    public void registerKeyListener(MyKeyListener listener) {
+        keyListeners.add(listener);
+    }
+
+    public void unRegisterKeyListener(MyKeyListener listener) {
+        keyListeners.remove(listener);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        final int keyCode = event.getKeyCode();
+        Log.i(TAG, "dispatchKeyEvent: code = " + keyCode );
+        for (int i = 0; i < keyListeners.size(); i++) {
+            keyListeners.get(i).onKey(event);
+        }
+        return index == KEY_TEST || index == AUDIO_HEADSET_TEST;
+    }
 
     public void onFail() {
         PreferenceRecorder.saveResult(false, index);
         Toast.makeText(this, getResources().getString(R.string.test_fail), Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, CitTest.class));
         finish();
     }
 
     public void onNext() {
+        Log.i(TAG, "onNext: current index:" + index);
         // recorder result
-        if(index != CAMERA_TEST) {
+        if (index != CAMERA_TEST) {
             PreferenceRecorder.saveResult(true, index);
         }
-
+        if (index == CAMERA_TEST) {
+            if (cameraTestFragment != null && cameraTestFragment.isAdded()) {
+                // take photo
+                cameraTestFragment.takePhoto();
+                return;
+            } else {
+                // delete photo
+                deletePhoto();
+                // save result
+                PreferenceRecorder.saveResult(true, CAMERA_TEST);
+            }
+        }
         if (PreferenceRecorder.isEnd(index)) {
+            Log.i(TAG, "onNext: " + index);
             // display alert dialog
             alertEndIfNecessary();
         } else {
             //reset buttons
             resetButton();
-            if (index == CAMERA_TEST) {
-                if (cameraTestFragment != null && cameraTestFragment.isAdded()) {
-                    // take photo
-                    cameraTestFragment.takePhoto();
-                    return;
-                } else {
-                    // delete photo
-                    deletePhoto();
-                    // save result
-                    PreferenceRecorder.saveResult(true, CAMERA_TEST);
-                }
-            }
+
             // if has next test
             index++;
             displayFragment();
@@ -345,10 +372,8 @@ public class TestItemActivity extends Activity {
     }
 
     private void writeResultToDisk(final boolean testResult) {
-        File file = new File(getFilesDir(), "citflag");
-        Utils.writeResultToDisk(testResult, file);
+        Utils.writeCitResult(testResult);
     }
-
 
     public void onRetry() {
         //reset result

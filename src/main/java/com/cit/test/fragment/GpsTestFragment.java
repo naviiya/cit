@@ -1,7 +1,6 @@
 package com.cit.test.fragment;
 
 import android.app.Fragment;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.GpsSatellite;
@@ -9,7 +8,6 @@ import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,10 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cit.test.R;
 import com.cit.test.TestItemActivity;
@@ -31,6 +27,8 @@ import com.cit.test.TestItemActivity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  */
@@ -38,9 +36,13 @@ public class GpsTestFragment extends Fragment {
 
     private static final String TAG = "GpsTestFragment";
     private TextView gpsTip;
+    private TextView gpsTimer;
     private TextView empty;
     private ListView gpsList;
     private GpsAdapter adapter;
+    private int mLocationMode;
+    private int mAssistedGps;
+    private Timer mTimer;
 
     @Nullable
     @Override
@@ -48,9 +50,10 @@ public class GpsTestFragment extends Fragment {
         View v = inflater.inflate(R.layout.gps_test_layout, container, false);
         gpsTip = (TextView) v.findViewById(R.id.gps_tip);
         gpsList = (ListView) v.findViewById(R.id.gps_list);
-        empty = (TextView) v.findViewById(R.id.empty_gps);
+        gpsTimer = (TextView) v.findViewById(R.id.gps_timer);
         gpsTip.setText(getResources().getString(R.string.open_gps));
         ((TestItemActivity) getActivity()).disableButton(R.id.btn_next);
+        init();
         return v;
     }
 
@@ -60,7 +63,6 @@ public class GpsTestFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        init();
     }
 
     private class GpsAdapter extends BaseAdapter {
@@ -130,34 +132,77 @@ public class GpsTestFragment extends Fragment {
 
                     @Override
                     public void onProviderEnabled(String s) {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.gps_on), Toast.LENGTH_SHORT).show();
+                        if(isAdded()) {
+                            Log.i(TAG, "onProviderEnabled: " + getResources().getString(R.string.gps_on));
+                        }
                     }
 
                     @Override
                     public void onProviderDisabled(String s) {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.gps_off), Toast.LENGTH_SHORT).show();
-                        mHandler.sendEmptyMessageDelayed(GO_TO_SET_GPS,500);
+                        if(isAdded()) {
+                            Log.i(TAG, "onProviderDisabled: " + getResources().getString(R.string.gps_off));
+                            mHandler.sendEmptyMessageDelayed(GO_TO_SET_GPS,0);
+                        }
                     }
                 });
         locationManager.addGpsStatusListener(statusListener);
+        if(isGpsOn()){
+            startTimer();
+        }
+    }
+
+    private void startTimer() {
+        if(startTimer){
+            return;
+        }
+      TimerTask timerTask = new TimerTask() {
+          @Override
+          public void run() {
+              mHandler.sendEmptyMessage(CHANGE_TIME);
+          }
+      };
+        mTimer = new Timer();
+        mTimer.schedule(timerTask,0,1000);
+        startTimer = true;
+    }
+    private void stopTimer(){
+        if(mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+            startTimer = false;
+        }
     }
 
     private static final int GO_TO_SET_GPS = 1110;
-
+    private static final int CHANGE_TIME = 1111;
+    private int time;
+    private boolean startTimer;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == GO_TO_SET_GPS){
-                goToSetGPS();
+                startGPS();
+            }else if(msg.what == CHANGE_TIME){
+                refreshTimeView();
             }
         }
     };
 
+    private void refreshTimeView() {
+        if(isAdded()) {
+            gpsTimer.setText(getString(R.string.current_search, time));
+        }
+        time ++;
+    }
 
+    private void resetTimeView(){
+        time = 0;
+    }
     private List<GpsSatellite> numSatelliteList = new ArrayList<>();
 
     private final GpsStatus.Listener statusListener = new GpsStatus.Listener() {
         public void onGpsStatusChanged(int event) {
+            Log.i(TAG, "onGpsStatusChanged: " + event);
             GpsStatus status = locationManager.getGpsStatus(null);
             String satelliteInfo = updateGpsStatus(event, status);
         }
@@ -166,6 +211,13 @@ public class GpsTestFragment extends Fragment {
     private String updateGpsStatus(int event, GpsStatus status) {
         numSatelliteList.clear();
         StringBuilder sb2 = new StringBuilder("");
+        if(event == GpsStatus.GPS_EVENT_STARTED){
+            Log.i(TAG, "updateGpsStatus: start");
+            startTimer();
+        }else if(event == GpsStatus.GPS_EVENT_STOPPED){
+            Log.i(TAG, "updateGpsStatus: stop");
+            resetTimeView();
+        }
         if (status == null) {
             findNoSatellite();
         } else if (event == GpsStatus.GPS_EVENT_SATELLITE_STATUS) {
@@ -178,6 +230,7 @@ public class GpsTestFragment extends Fragment {
                 numSatelliteList.add(s);
                 count++;
             }
+            Log.i(TAG, "updateGpsStatus: count = " + count);
             if (count != 0) {
                 notifySatelliteFind();
             } else {
@@ -189,18 +242,26 @@ public class GpsTestFragment extends Fragment {
     }
 
     private void notifySatelliteFind() {
-        ((TestItemActivity) getActivity()).resetButton();
-        adapter.refresh();
-        gpsTip.setText(getResources().getString(R.string.search_gps_success, numSatelliteList.size() + ""));
+        if(isAdded()) {
+            ((TestItemActivity) getActivity()).resetButton();
+            adapter.refresh();
+            gpsTip.setText(getResources().getString(R.string.search_gps_success, numSatelliteList.size() + ""));
+        }
         gpsList.setVisibility(View.VISIBLE);
-        empty.setVisibility(View.GONE);
     }
 
     private void findNoSatellite() {
-        ((TestItemActivity) getActivity()).disableButton(R.id.btn_next);
-        gpsTip.setText(getResources().getString(R.string.search_gps_fail));
+        if(isAdded()) {
+            ((TestItemActivity) getActivity()).disableButton(R.id.btn_next);
+            gpsTip.setText(getResources().getString(R.string.search_gps_fail));
+        }
         gpsList.setVisibility(View.GONE);
-        empty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 
     @Override
@@ -209,27 +270,34 @@ public class GpsTestFragment extends Fragment {
         if (locationManager != null) {
             locationManager.removeGpsStatusListener(statusListener);
         }
-    }
-
-    private void goToSetGPS() {
-        Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivityForResult(intent, 0);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0){
-            if(!isGpsOn()){
-                Toast.makeText(getActivity(), getResources().getString(R.string.gps_off), Toast.LENGTH_SHORT).show();
-                mHandler.sendEmptyMessageDelayed(GO_TO_SET_GPS,500);
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-
+        stopGpsIfNecessary();
+        stopTimer();
     }
 
     private boolean isGpsOn(){
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    private void startGPS(){
+        Log.i(TAG, "startGPS...");
+      try{
+          Intent intent = new Intent("com.android.settings.location.MODE_CHANGING");
+          intent.putExtra("NEW_MODE", android.provider.Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+          getActivity().sendBroadcast(intent, android.Manifest.permission.WRITE_SECURE_SETTINGS);
+          mLocationMode = Settings.Secure.getInt(getActivity().getContentResolver(), Settings.Secure.LOCATION_MODE);
+          mAssistedGps = Settings.Global.getInt(getActivity().getContentResolver(), Settings.Global.ASSISTED_GPS_ENABLED);
+          Settings.Secure.putInt(getActivity().getContentResolver(), Settings.Secure.LOCATION_MODE, android.provider.Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+          Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ASSISTED_GPS_ENABLED,1);
+      }catch (Exception e){
+          Log.e(TAG, "startGPS error! ", e);
+      }
+    }
+
+    private void stopGpsIfNecessary(){
+        Intent intent = new Intent("com.android.settings.location.MODE_CHANGING");
+        intent.putExtra("NEW_MODE", android.provider.Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+        getActivity().sendBroadcast(intent, android.Manifest.permission.WRITE_SECURE_SETTINGS);
+        Settings.Secure.putInt(getActivity().getContentResolver(), Settings.Secure.LOCATION_MODE, mLocationMode);
+        Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ASSISTED_GPS_ENABLED,mAssistedGps);
     }
 }

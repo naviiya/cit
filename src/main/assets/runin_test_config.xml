@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseList>
+ 
+    <TestCase class_name=".runintest.pcba.ConnectTest_GpsActivity" test_group="TEST ALL" first_test="yc">GPS Test: TTFF</TestCase>
+
+    <TestCase class_name=".runintest.runin.BatCapCtlActivity" test_group="TEST ALL" first_test="yc">Battery Capacity Control</TestCase>
+    <TestCase class_name=".runintest.pcba.StorageTest_SDCardSlotActivity" test_group="TEST ALL" first_test="yc">MicroSD Slot Detect PIN Check</TestCase>
+<!-- 
+    <TestCase class_name=".ft.ConnectTest_GPSActivity" test_group="TEST ALL" first_test="yc">GPS Test: TTFF</TestCase>
+ -->
+ 	<TestCase class_name=".runintest.pcba.ConnectTest_BluetoothActivity" test_group="TEST ALL" first_test="yc">Bluetooth Check</TestCase>
+<!--
+	<TestCase class_name=".pcba.ConnectTest_GpsActivity" test_group="TEST ALL" first_test="yc">GPS Test: TTFF</TestCase>
+-->
+<!-- 
+	<TestCase class_name=".ft.InfoTest_DMIActivity" test_group="TEST ALL" first_test="yc">UUID MAC Check</TestCase>
+-->
+    <TestCase class_name=".runintest.pcba.CameraTest_FrontActivity" test_group="TEST ALL" first_test="yc">Front Camera Check</TestCase>
+	<TestCase class_name=".runintest.pcba.CameraTest_RearActivity" test_group="TEST ALL" first_test="yc">Rear Camera Check</TestCase>
+	
+<!--     
+    <TestCase class_name=".pcba.InfoTest_SystemActivity" test_group="TEST ALL" first_test="yc">System Information</TestCase>
+ -->
+    <TestCase class_name=".runintest.pcba.StorageTest_DDRActivity" test_group="TEST ALL" first_test="yc">DDR Pattern Test</TestCase>
+	<TestCase class_name=".runintest.pcba.StorageTest_eMMCActivity" test_group="TEST ALL" first_test="yc">eMMC Pattern Test</TestCase>
+    
+<!-- 
+	<TestCase class_name=".pcba.ConnectTest_WifiActivity" test_group="TEST ALL" first_test="yc">WiFi Check</TestCase>
+	<TestCase class_name=".pcba.ConnectTest_BluetoothActivity" test_group="TEST ALL" first_test="yc">Bluetooth Check</TestCase>
+	<TestCase class_name=".pcba.ConnectTest_GpsActivity" test_group="TEST ALL" first_test="yc">GPS test</TestCase>
+-->
+
+	<!-- Run-in -->
+<!-- 	<TestCase class_name=".runin.RuninActivity" test_group="TEST ALL" first_test="yc">Runin Test</TestCase>  -->
+	<!-- Standby cycle -->
+	<TestCase class_name=".runintest.runin.StandbyActivity" test_group="TEST ALL" first_test="yc">Standby cycle</TestCase>
+    
+    <!-- Reboot cycle -->
+	<TestCase class_name=".runintest.runin.RebootActivity" test_group="TEST ALL" first_test="yc">Reboot cycle</TestCase>
+<!--
+	<TestCase class_name=".ft.SensorTest_GsensorCalibActivity" test_group="TEST ALL" first_test="yc">SensorTest: Gsensor Calibration</TestCase>
+
+	<TestCase class_name=".pcba.PowerTest_BatteryChargeActivity" test_group="TEST ALL" first_test="yc">Battery Charging Check </TestCase>
+-->	
+	<!-- Media Play -->
+	<TestCase class_name=".runintest.runin.VideoPlayActivity" test_group="TEST ALL" first_test="yc">Video Play</TestCase>
+	
+	<TestCase class_name=".runintest.runin.ThermalActivity" test_group="TEST ALL" first_test="yc">Thermal Test</TestCase>
+	<TestCase class_name=".runintest.runin.BatteryActivity" test_group="TEST ALL" first_test="yc">Battery Charging</TestCase>
+<!--     
+    	<TestCase class_name="VersionTestActivity" test_group="TEST ALL" first_test="yc">System Information</TestCase>
+	<TestCase class_name="WifiTestActivity" test_group="TEST ALL" first_test="yc">Wifi</TestCase>
+	<TestCase class_name="BluetoothTestActivity" test_group="TEST ALL" first_test="yc">Bluetooth</TestCase>
+	<TestCase class_name="FrontCameraTestActivity" test_group="TEST ALL" first_test="yc">Front Camera</TestCase>
+	<TestCase class_name="RearCameraTestActivity" test_group="TEST ALL" first_test="yc">Rear Camera</TestCase>
+	<TestCase class_name="DDRTestActivity" test_group="TEST ALL" first_test="yc">DDR Pattern Test</TestCase>
+	<TestCase class_name="EMMCTestActivity" test_group="TEST ALL" first_test="yc">eMMC Pattern Test</TestCase>
+	<TestCase class_name="TemperatureTestActivity" test_group="TEST ALL" first_test="yc">Thermal Test</TestCase>
+	<TestCase class_name="BatteryChargeRuninActivity" test_group="TEST ALL" first_test="yc">Battery Charging</TestCase>
+ -->
+ 	<!--<TestCase class_name="PowerTestActivity" test_group="TEST ALL" first_test="yc">Battery In</TestCase>-->
+
+	<!--<TestCase class_name="TouchTestActivity" test_group="TEST ALL" first_test="yc">Touch</TestCase> -->
+
+	<!-- <TestCase class_name="VibrationTestActivity" test_group="rest">Vibration</TestCase> -->
+	<!--<TestCase class_name="SpeakerTestActivity" test_group="TEST ALL" first_test="yc">Speaker</TestCase>-->
+
+	<!-- <TestCase class_name="HardwareInfoTestActivity" test_group="TEST AUTO">Hardware</TestCase> -->
+
+
+	<!-- <TestCase class_name="GpsTestActivity" test_group="TEST ALL">GPS</TestCase> -->
+
+	<!-- <TestCase class_name="StorageTestActivity" test_group="TEST AUTO">Storage R/W</TestCase> -->
+
+
+
+	<!--<TestCase class_name="BrightnessTestActivity" test_group="TEST ALL" first_test="yc" >Brightness</TestCase>-->
+
+
+	<!--<TestCase class_name="UsbHostTestActivity" test_group="TEST ALL">UsbHost</TestCase>-->
+
+	<!-- TestCase class_name="GpsLocationTestActivity" test_group="TEST 2">GPS Location</TestCase> -->
+	<!-- <TestCase class_name="MrioUSBTestActivity" test_group="TEST 2">Mrio USB</TestCase> -->
+
+	<!--<TestCase class_name="HdmiTestActivity" test_group="TEST ALL">HDMI</TestCase>-->
+	<!--<TestCase class_name="StorageActivity" test_group="TEST ALL" first_test="yc">Storage</TestCase> -->
+	<!-- <TestCase class_name="CompassTestActivity" test_group="TEST 3">Compass</TestCase> -->
+
+	<!--<TestCase class_name="LevelTestActivity" test_group="rest">Level</TestCase> -->
+	<!-- <TestCase class_name="MsensorTestActivity" test_group="rest">Msensor</TestCase> -->
+	<!-- <TestCase class_name="LightsensorTestActivity" test_group="rest">Lightsensor</TestCase> -->
+
+	<!-- <TestCase class_name="SimCardTestActivity" test_group="rest">Sim Card</TestCase> -->
+	<!-- <TestCase class_name="FMRadioTestActivity" test_group="rest">FM Radio</TestCase> -->
+ 	<!--<TestCase class_name="LedTestActivity" test_group="TEST 1">LED</TestCase> -->
+       <!--<TestCase class_name="CirTestActivity" test_group="TEST 1">Cir</TestCase>
+	<TestCase class_name="IrdaTestActivity" test_group="TEST 1">IrDA</TestCase> -->
+<!-- <TestCase class_name="CompassTestActivity" test_group="TEST 3">Compass</TestCase> -->
+	<!-- <TestCase class_name="RuninTestActivity" test_group="RunIn">Runin</TestCase>-->
+
+</TestCaseList>

@@ -1,8 +1,13 @@
 package com.cit.test.fragment;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,8 +17,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cit.test.R;
+import com.cit.test.TestItemActivity;
+import com.cit.test.Utils;
 import com.cit.test.view.LcdTestView;
 
 import java.io.BufferedReader;
@@ -28,7 +36,7 @@ import java.io.RandomAccessFile;
 
 public class MHLTestFragment extends Fragment implements View.OnTouchListener {
 
-    private final static String TAG = "HDMITEST";
+    private final static String TAG = MHLTestFragment.class.getSimpleName();
 
     private final static int CHANGE_COLOR = 1;
     private final static int HDMI_SCAN = 2;
@@ -51,6 +59,27 @@ public class MHLTestFragment extends Fragment implements View.OnTouchListener {
         HdmiState = new File("/sys/class/hdmi/hdmi-0/state");
 
     }
+    public static final String ACTION_GLXSS_DEVICE_ATTACHED = UsbManager.ACTION_MRDEVICE_ATTACHED;
+    public static final String ACTION_GLXSS_DEVICE_DETACHED = UsbManager.ACTION_MRDEVICE_DETACHED;
+    private GlxssReceiver mReceiver;
+    private class GlxssReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if(action.equals(ACTION_GLXSS_DEVICE_ATTACHED)){
+                Log.i(TAG, "onReceive: " + " attach ");
+                Toast.makeText(getActivity(), getResources().getString(R.string.glxss_connected), Toast.LENGTH_LONG).show();
+                ((TestItemActivity)getActivity()).resetButton();
+                // start test
+            }else if(action.equals(ACTION_GLXSS_DEVICE_DETACHED)){
+                Log.i(TAG, "onReceive: detach");
+                Toast.makeText(getActivity(), getResources().getString(R.string.insert_glxss), Toast.LENGTH_LONG).show();
+                ((TestItemActivity)getActivity()).disableNextButton();
+                // stop test
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -66,14 +95,26 @@ public class MHLTestFragment extends Fragment implements View.OnTouchListener {
     @Override
     public void onResume() {
         super.onResume();
-//        mHandler.sendEmptyMessageDelayed(HDMI_SCAN, 500);
+        ((TestItemActivity)getActivity()).disableNextButton();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_GLXSS_DEVICE_ATTACHED);
+        filter.addAction(ACTION_GLXSS_DEVICE_DETACHED);
+        mReceiver = new GlxssReceiver();
+        getActivity().registerReceiver(mReceiver,filter);
+        if(!Utils.isGlxssConnect(getActivity())){
+            Toast.makeText(getActivity(),getString(R.string.insert_glxss),Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(isAdded()) {
+            ((TestItemActivity)getActivity()).resetButton();
+            // start test
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        mHandler.removeMessages(HDMI_SCAN);
-//        mHandler.removeMessages(CHANGE_COLOR);
+        getActivity().unregisterReceiver(mReceiver);
     }
 
     private Handler mHandler = new Handler() {
@@ -183,7 +224,7 @@ public class MHLTestFragment extends Fragment implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !isStart) {
-            mHandler.sendEmptyMessageDelayed(HDMI_SCAN, 500);
+//            mHandler.sendEmptyMessageDelayed(HDMI_SCAN, 500);
         }
         return false;
     }

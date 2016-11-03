@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+	<LinearLayout
+	    android:id="@+id/titleLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:paddingBottom="60dip" >
+
+		<TextView
+		    android:id="@+id/title"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_centerInParent="true"
+		    android:gravity="center_horizontal"
+		    android:paddingTop="20px"
+		    android:text="@string/powertest_batterydischarge_title"
+		    android:textSize="32sp"
+		    android:visibility="visible" /> 
+
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:layout_centerVertical="true"
+	    android:orientation="vertical" >
+
+	    <TextView
+			android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:layout_marginLeft="80dp"
+	        android:layout_marginRight="80dp"
+	        android:gravity="left"
+	        android:paddingTop="10px"
+	        android:textSize="24sp"
+	        android:visibility="visible" />
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/titleLayout"
+	    android:layout_marginLeft="60dp"
+	    android:orientation="vertical" >
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_status"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_status"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_powerplug"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_powerplug"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_level"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_level"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_scale"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_scale"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_health"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_health"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_voltage"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_voltage"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_current"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_current"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_capacity"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_capacity"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_temperature"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_temperature"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="horizontal" >
+
+		    <TextView
+				android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/bat_technology"
+		        android:textColor="@android:color/white" />
+
+		    <TextView
+		        android:id="@+id/bat_technology"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:textColor="@android:color/darker_gray" />
+
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/hint"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textColor="@android:color/holo_red_light"
+		    android:textSize="20sp" />
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent" >
+
+			<TextView
+				android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/result"
+			    android:textColor="@android:color/holo_orange_dark"
+			    android:textSize="20sp" />
+
+			<TextView
+			    android:id="@+id/result"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="20dp"
+			    android:textSize="20sp" />
+
+		</LinearLayout>
+
+	</LinearLayout>
+<!-- 
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_alignParentBottom="true">
+
+		<Button android:id="@+id/btn_Pass" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/btnPassText" />
+
+		<Button android:id="@+id/btn_Fail" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/btnFailText" />
+		<Button android:id="@+id/btn_Skip" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/btnSkipText" />
+	</LinearLayout>
+ -->
+</RelativeLayout>

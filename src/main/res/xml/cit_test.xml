@@ -1,117 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-<PreferenceCategory android:title="@string/cit">
-    <PreferenceScreen android:key="check_version"
-        android:summary="软件版本检查"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-        <!--<intent android:targetClass="com.cit.TestItemActivity          android:targetPackage="com.cit"/>
--->
-    </PreferenceScreen>
+    <PreferenceCategory android:title="@string/cit">
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="check_version"
+            android:summary="软件版本检查">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="lcd_test"
-        android:summary="LCD测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="lcd_test"
+            android:summary="LCD测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="screen_test"
-        android:summary="触摸屏测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="screen_test"
+            android:summary="触摸屏测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="speaker_test"
-        android:summary="扬声器测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="speaker_test"
+            android:summary="扬声器测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="backlight_test"
-        android:summary="背景灯测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
-
-    <!-- hide -->
-    <!--<PreferenceScreen android:key="MHL_test"-->
-        <!--android:summary="MHL测试"-->
-        <!--android:fragment="com.cit.test.fragment.CheckVersionFragment">-->
-    <!--</PreferenceScreen>-->
-
-    <PreferenceScreen android:key="USB_test"
-        android:summary="USB测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="backlight_test"
+            android:summary="背景灯测试">
+        </PreferenceScreen>
 
 
-    <PreferenceScreen android:key="main_audio_test"
-        android:summary="主音频扬声器测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
-
-    <PreferenceScreen android:key="earphone_test"
-        android:summary="耳机听筒测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
-
-    <PreferenceScreen android:key="key_test"
-        android:summary="按键测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
-
-    <PreferenceScreen android:key="T-FLASH_test"
-        android:summary="T-FLASH卡测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="USB_test"
+            android:summary="USB测试">
+        </PreferenceScreen>
 
 
-    <PreferenceScreen android:key="emmc_test"
-        android:summary="EMMC内存卡测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="earphone_test"
+            android:summary="耳机听筒测试">
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="key_test"
+            android:summary="按键测试">
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="T-FLASH_test"
+            android:summary="T-FLASH卡测试">
+        </PreferenceScreen>
 
 
-    <PreferenceScreen android:key="charging_test"
-        android:summary="充电器连接测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
-
-    <PreferenceScreen android:key="camera_test"
-        android:summary="摄像头测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="emmc_test"
+            android:summary="EMMC内存卡测试">
+        </PreferenceScreen>
 
 
-    <!-- hide -->
-    <!--<PreferenceScreen android:key="camera_photo_test"-->
-        <!--android:summary="摄像头拍摄照片测试"-->
-        <!--android:fragment="com.cit.test.fragment.CheckVersionFragment">-->
-    <!--</PreferenceScreen>-->
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="charging_test"
+            android:summary="充电器连接测试">
+        </PreferenceScreen>
 
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="WIFI_test"
+            android:summary="WLAN测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="WIFI_test"
-        android:summary="WIFI测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="bluetooth_test"
+            android:summary="蓝牙测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="bluetooth_test"
-        android:summary="蓝牙测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="gps_test"
+            android:summary="GPS测试">
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="rgb_test"
+            android:summary="RGB测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="gps_test"
-        android:summary="GPS测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="F12_test"
+            android:summary="眼镜端KEY响应测试">
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="main_audio_test"
+            android:summary="主音频扬声器测试">
+        </PreferenceScreen>
 
-    <PreferenceScreen android:key="rgb_test"
-        android:summary="RGB测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>
+        <PreferenceScreen
+            android:fragment="com.cit.test.fragment.CheckVersionFragment"
+            android:key="camera_test"
+            android:summary="摄像头测试">
+        </PreferenceScreen>
 
-    <!-- hide -->
-   <!-- <PreferenceScreen android:key="pass_storage_test"
-        android:summary="储存pass信息测试"
-        android:fragment="com.cit.test.fragment.CheckVersionFragment">
-    </PreferenceScreen>-->
-
-
-
-</PreferenceCategory>
+    </PreferenceCategory>
 </PreferenceScreen>

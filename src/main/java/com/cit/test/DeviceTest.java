@@ -7,8 +7,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 //import android.os.SystemProperties;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 //import com.byd8.test.view.MyGridView;
 //import com.byd8.test.view.MyItemView;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,13 +40,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 //import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 //import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-import com.cit.test.socket.AndroidService;
 
 public class DeviceTest extends Activity implements OnClickListener {
 
@@ -221,12 +224,69 @@ public class DeviceTest extends Activity implements OnClickListener {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.main_layout);
         bindViews();
-        startService(new Intent(this, AndroidService.class));
-        android.util.Log.d("adbsocket", "start service");
+        validateEnforcePermission();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        setEnforce(false);
     }
 
+    private void validateEnforcePermission() {
+        String versionType = Build.TYPE;
+        if (!versionType.equals("user")) {
+            // 只有user版本需要检查写入权限
+            return;
+        }
+        try {
+            Process process = Runtime.getRuntime().exec("getenforce\n");
+            BufferedInputStream bis = new BufferedInputStream(process.getInputStream());
+            StringBuilder enforceInfo = readStreamInfo(bis);
+            Log.i(TAG, "validateEnforcePermission: " + enforceInfo.toString().trim());
+            BufferedInputStream err = new BufferedInputStream(process.getErrorStream());
+            StringBuilder enforceError = readStreamInfo(err);
+            process.destroy();
+            Log.e(TAG, "validateEnforcePermission: " + enforceError.toString());
+//            if("Enforcing".equals(enforceInfo.toString().trim())){
+                // 开启权限
+                setEnforce(true);
+//            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG, "validateEnforcePermission: ", e);
+        }
+    }
+
+    private void setEnforce(boolean on){
+      try {
+          String cmd = on ? "setenforce 0\n" : "setenforce 1\n";
+          Process p = Runtime.getRuntime().exec(cmd);
+          BufferedInputStream e = new BufferedInputStream(p.getErrorStream());
+          StringBuilder sbError = readStreamInfo(e);
+          Log.e(TAG, "setEnforce: " + sbError.toString().trim());
+          p.destroy();
+      }catch (Exception e){
+          Log.e(TAG, "setEnforce: ", e);
+      }
+    }
+
+    @NonNull
+    private StringBuilder readStreamInfo(BufferedInputStream bis) throws IOException {
+        InputStreamReader isr = new InputStreamReader(bis, "GBK");
+
+        BufferedReader br = new BufferedReader(isr);
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line);
+            sb.append("\n");
+        }
+        br.close();
+        return sb;
+    }
     private void bindViews() {
         Button cit = (Button) findViewById(R.id.btn1);
         cit.setOnClickListener(this);
@@ -245,7 +305,8 @@ public class DeviceTest extends Activity implements OnClickListener {
             // runin test
             Toast.makeText(this, "runin test!", Toast.LENGTH_LONG).show();
             // write result to disk
-            Utils.writeResultToDisk(false,new File(getFilesDir(),"runinflag"));
+            Utils.writeRuninResult(false);
+            //startActivity(new Intent(this, com.cit.test.runintest.DeviceTest.class));
         }
 
     }
@@ -408,13 +469,6 @@ public class DeviceTest extends Activity implements OnClickListener {
             bPause = true;
         }
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopService(new Intent(this, AndroidService.class));
-        android.util.Log.d("adbsocket", "stop service");
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {

@@ -14,7 +14,8 @@ import java.util.TreeMap;
 
 public class PreferenceRecorder {
 
-    private static final Map<Integer,PreferenceWrapper> mPreferenceWrappers = new TreeMap<>(new Comparator<Integer>() {
+    private static final Map<Integer,PreferenceWrapper> mPreferenceWrappers
+            = new TreeMap<>(new Comparator<Integer>() {
         @Override
         public int compare(Integer integer, Integer t1) {
             return integer - t1;

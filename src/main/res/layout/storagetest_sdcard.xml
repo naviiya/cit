@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/storagetest_sdcard__title"
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/center1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:textSize="1sp"
+        android:visibility="invisible" />
+
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="vertical"
+		android:paddingBottom="60dip">
+
+		<ScrollView android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingTop="20px" android:textSize="18sp"
+				android:visibility="visible" android:id="@+id/sdresultText" />
+		</ScrollView>
+
+
+
+
+	</LinearLayout>
+<!-- 
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:layout_alignParentBottom="true">
+
+		<Button android:id="@+id/btn_Pass" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/btnPassText" />
+
+		<Button android:id="@+id/btn_Fail" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/btnFailText" />
+		<Button android:id="@+id/btn_Skip" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/btnSkipText" />
+	</LinearLayout>
+ -->
+
+	<FrameLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/center1"
+	    android:layout_toLeftOf="@+id/center1"
+	    android:paddingLeft="40dp"
+	    android:paddingTop="40dp" >
+
+	    <TextView
+	        android:id="@+id/info"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp" />
+	</FrameLayout>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/center1"
+	    android:layout_centerInParent="true"
+	    android:layout_marginBottom="140dp"
+	    android:layout_marginLeft="300dp"
+	    android:layout_marginRight="300dp"
+	    android:layout_marginTop="60dp"
+	    android:background="@drawable/green"
+	    android:padding="2dp"
+	    android:visibility="invisible" >
+
+		<FrameLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@android:color/background_dark"
+		    android:padding="10dp" >
+
+		    <TextView
+				android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_marginBottom="60dp"
+		        android:layout_marginTop="20dp"
+		        android:text="@string/retest__prompt"
+		        android:textSize="32sp" />
+
+		    <Button
+				android:layout_width="160dp"
+		        android:layout_height="60dp"
+		        android:layout_gravity="bottom|left"
+		        android:text="@string/retest__prompt_no"
+		        android:textSize="24sp" />
+
+		    <Button
+				android:layout_width="160dp"
+		        android:layout_height="60dp"
+		        android:layout_gravity="bottom|right"
+		        android:text="@string/retest__prompt_yes"
+		        android:textSize="24sp" />
+
+		</FrameLayout>
+
+	</FrameLayout>
+
+</RelativeLayout>

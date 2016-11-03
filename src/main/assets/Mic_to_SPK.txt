@@ -1,0 +1,59 @@
+
+tinymix "pcm2_in gain 0 mute" 0                  
+tinymix "codec_out0 gain 0 mute" 0               
+tinymix "Speaker Playback Switch" 1 1             
+tinymix "Speaker Playback Volume" 31 31
+tinymix "OUT Playback Switch" 1 1                 
+tinymix "DAC1 Playback Volume" 175 175             
+tinymix "Ext Spk Switch" 1                       
+tinymix "SPOR MIX SPKVOL R Switch" 1             
+tinymix "SPOL MIX SPKVOL R Switch" 1             
+tinymix "SPK MIXR DAC R1 Switch" 1              
+tinymix "SPK MIXL DAC L1 Switch" 1        
+tinymix "Stereo DAC MIXL DAC R1 Switch" 1       
+tinymix "Stereo DAC MIXR DAC R1 Switch" 1       
+tinymix "Stereo DAC MIXL DAC L1 Switch" 1        
+tinymix "Stereo DAC MIXR DAC L1 Switch" 1        
+tinymix "DAC1 MIXR DAC1 Switch"  1               
+tinymix "DAC1 MIXL DAC1 Switch" 1               
+tinymix "hf_out mix 0 pcm2_in" 1                 
+tinymix "vad_out mix 0 codec_in0" 0              
+tinymix "vad_out mix 0 txspeech_in" 1            
+tinymix "sprot_loop_out mix 0 media_loop1_in" 1  
+tinymix "media_loop1_out mix 0 pcm2_in"  1       
+tinymix "codec_out0 mix 0 sprot_loop_in" 1       
+
+tinymix "pcm1_out gain 0 mute" 0
+tinymix "codec_in0 gain 0 mute" 0
+tinymix "ADC Capture Switch" 1 1
+tinymix "ADC Capture Volume" 75 75
+tinymix "Int Mic Switch" 1
+tinymix "Sto1 ADC MIXR ADC2 Switch" 1
+tinymix "Sto1 ADC MIXL ADC2 Switch" 1
+tinymix "speech_out mix 0 codec_in0" 1
+tinymix "pcm1_out mix 0 codec_in0" 1
+
+tinymix "DAC1 MIXL Stereo ADC Switch" 1
+tinymix "DAC1 MIXR Stereo ADC Switch" 1
+echo 61 9b01 > /sys/kernel/debug/asoc/cherrytrailaud/i2c-10EC5645:00/codec_reg
+echo 62 8800 > /sys/kernel/debug/asoc/cherrytrailaud/i2c-10EC5645:00/codec_reg
+echo 63 f8f8 > /sys/kernel/debug/asoc/cherrytrailaud/i2c-10EC5645:00/codec_reg
+echo 64 0200 > /sys/kernel/debug/asoc/cherrytrailaud/i2c-10EC5645:00/codec_reg
+echo 65 f000 > /sys/kernel/debug/asoc/cherrytrailaud/i2c-10EC5645:00/codec_reg
+echo 66 cc00 > /sys/kernel/debug/asoc/cherrytrailaud/i2c-10EC5645:00/codec_reg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

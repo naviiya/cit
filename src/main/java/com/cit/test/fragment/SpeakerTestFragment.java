@@ -27,6 +27,8 @@ import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
 public class SpeakerTestFragment extends Fragment {
 
+    private AssetFileDescriptor mAssetFileDescriptor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,22 +49,23 @@ public class SpeakerTestFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         mPlayer = new MediaPlayer();
+        mAssetFileDescriptor = null;
         try {
-            AssetFileDescriptor fd = getActivity().getAssets().openFd("test_music.mp3");
-            mPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(),
-                    fd.getDeclaredLength());
-
+            mAssetFileDescriptor = getActivity().getAssets().openFd("test_music.mp3");
+            mPlayer.setDataSource(mAssetFileDescriptor.getFileDescriptor(), mAssetFileDescriptor.getStartOffset(),
+                    mAssetFileDescriptor.getDeclaredLength());
             mPlayer.prepare();
             mPlayer.setLooping(true);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            if(mAssetFileDescriptor != null){
+                try {
+                    mAssetFileDescriptor.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
     }
 
@@ -121,6 +124,13 @@ public class SpeakerTestFragment extends Fragment {
         }
         this.mPlayer.release();
         this.mPlayer = null;
+        if(mAssetFileDescriptor != null){
+            try {
+                mAssetFileDescriptor.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         mHandler.removeCallbacksAndMessages(null);
     }
 

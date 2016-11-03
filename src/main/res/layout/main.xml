@@ -1,20 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/layout1"
-    android:layout_width="fill_parent" android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout android:id="@+id/btnLayout2"
-        android:layout_width="fill_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:layout_alignParentTop="true">
+	<!--<LinearLayout android:id="@+id/btnLayout2"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:orientation="horizontal" android:layout_alignParentTop="true">
 
-        <Button android:id="@+id/btn1" android:layout_width="0dip"
-            android:layout_height="45dip" android:layout_weight="1"
-            android:layout_marginLeft="3dip" android:text="@string/cit" />
+		<Button android:id="@+id/btn1" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1"
+			android:layout_marginLeft="3dip" android:text="@string/pcba" />
+		
+		<Button android:id="@+id/btn2" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1"
+			android:layout_marginLeft="3dip" android:text="@string/run_in" />
+		
+		<Button android:id="@+id/btn3" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1"
+			android:layout_marginLeft="3dip" android:text="@string/ft" />
+		<Button android:id="@+id/btn4" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1"
+			android:layout_marginLeft="3dip" android:layout_marginRight="3dip"
+			android:text="@string/lcd_module" />
 
-        <Button android:id="@+id/btn2" android:layout_width="0dip"
-             android:layout_height="45dip" android:layout_weight="1"
-             android:layout_marginLeft="3dip" android:text="@string/run_in" />
+		<Button
+		    android:id="@+id/btn5"
+		    android:layout_width="0dip"
+		    android:layout_height="45dip"
+		    android:layout_marginLeft="3dip"
+		    android:layout_marginRight="3dip"
+		    android:layout_weight="1"
+		    android:text="@string/main__other" />
 
-    </LinearLayout>
+		<Button
+		    android:id="@+id/btn6"
+		    android:layout_width="0dip"
+		    android:layout_height="45dip"
+		    android:layout_marginLeft="3dip"
+		    android:layout_marginRight="3dip"
+		    android:layout_weight="1"
+		    android:text="@string/main__autotest" />
 
+	</LinearLayout>-->
+	<LinearLayout android:id="@+id/layout_runin_setting"
+	    android:layout_width="fill_parent" android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:text="@string/main__standby"
+	        android:textColor="#ffffff00"
+	        android:textSize="24sp" />
+
+	    <EditText
+	        android:id="@+id/runin_standby"
+	        android:layout_width="160dp"
+	        android:layout_height="wrap_content"
+	        android:inputType="phone"
+	        android:text="@string/main__standby_default"
+	        android:textSize="24sp" />
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:text="@string/main__reboot"
+	        android:textColor="#ffff0000"
+	        android:textSize="24sp" />
+
+	    <EditText
+	        android:id="@+id/runin_reboot"
+	        android:layout_width="160dp"
+	        android:layout_height="wrap_content"
+	        android:inputType="phone"
+	        android:text="@string/main__reboot_default"
+	        android:textSize="24sp" />
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:text="@string/main__playtime"
+	        android:textColor="#ff00ff00"
+	        android:textSize="24sp" />
+
+	    <EditText
+	        android:id="@+id/runin_playtime"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:inputType="phone"
+	        android:text="@string/main__playtime_default"
+	        android:textSize="24sp" />
+	    	    
+	</LinearLayout>
+	
+	<LinearLayout android:id="@+id/btnLayout"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:orientation="horizontal" android:layout_alignParentBottom="true">
+
+		<Spinner
+			android:visibility="gone" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:layout_weight="2" />
+
+		<Button android:id="@+id/btn_testall" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1" android:text="@string/testall" />
+
+		<Button android:id="@+id/btn_cancel" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1" android:text="@string/Cancel" />
+
+		<Button android:id="@+id/btn_clear" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1" android:text="@string/Clear" />
+		<!--
+		<Button android:id="@+id/btn_uninstall" android:layout_width="0dip"
+			android:layout_height="45dip" android:layout_weight="1" android:text="@string/Uninstall" />
+		-->
+	</LinearLayout>
+
+	<LinearLayout android:id="@+id/layout_gridview"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@id/layout_runin_setting" 
+	    android:layout_above="@id/btnLayout" > <!-- android:layout_marginTop="34dip" -->
+		<com.cit.test.runintest.MyGridView
+			android:id="@+id/myGridView" 
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent" />
+	</LinearLayout>
+	
 </RelativeLayout>

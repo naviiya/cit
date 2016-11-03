@@ -42,7 +42,6 @@ public class WIFITestFragment extends Fragment{
         wifiList = (ListView) v.findViewById(R.id.wifi_list);
         empty = (TextView) v.findViewById(R.id.empty_wifi);
         ((TestItemActivity)getActivity()).disableButton(R.id.btn_next);
-
         return v;
     }
 
@@ -154,24 +153,33 @@ public class WIFITestFragment extends Fragment{
     }
 
     private void openWifi() {
-        if (!wifiManager.isWifiEnabled()) {
+        boolean enable = wifiManager.isWifiEnabled();
+        mEnable = enable;
+        if (!enable) {
             wifiManager.setWifiEnabled(true);
-            mHandler.sendEmptyMessageDelayed(OPEN_WIFI,500);
+            mHandler.sendEmptyMessageDelayed(OPEN_WIFI,1500);
         }else {
             mHandler.sendEmptyMessageDelayed(OPEN_WIFI,200);
         }
     }
+
+    private boolean mEnable;
     private void checkWifiStatus(){
-        if (wifiManager.isWifiEnabled()) {
+        boolean enable = wifiManager.isWifiEnabled();
+        if (enable) {
             mHandler.sendEmptyMessageDelayed(SEARCH_WIFI, 200);
         }else {
-            mHandler.sendEmptyMessageDelayed(SEARCH_WIFI_Fail,200);
+            mHandler.sendEmptyMessageDelayed(OPEN_WIFI,200);
         }
     }
 
+    private void stopWifiImmediateIfNecessary(){
+        wifiManager.setWifiEnabled(mEnable);
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopWifiImmediateIfNecessary();
         mHandler.removeCallbacksAndMessages(null);
     }
 }
